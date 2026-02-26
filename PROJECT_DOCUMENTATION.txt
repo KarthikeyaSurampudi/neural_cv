@@ -1,0 +1,428 @@
+================================================================================
+               NeuralCV — COMPLETE PROJECT DOCUMENTATION
+================================================================================
+
+This document describes every folder and file in the NeuralCV project.
+NeuralCV is an AI-powered resume screening system built with Streamlit,
+SQLAlchemy, and Cohere LLM. It parses resumes, scores them against a
+Job Description (JD), and produces ranked recommendations.
+
+
+================================================================================
+1. app/                         — STREAMLIT FRONTEND
+================================================================================
+
+  __init__.py
+      Package initializer for the app module.
+
+  streamlit_app.py
+      The main entry point of the application. Contains:
+        - Session recovery logic (restores login from file-based sessions)
+        - show_login()          — Login form with username/password
+        - sidebar_navigation()  — Sidebar menu (Dashboard, New Analysis, etc.)
+        - show_dashboard()      — Welcome page with stats & analysis cards
+        - show_analysis_results() — Displays Stage 1 scores, Stage 2 rankings,
+                                    detailed profiles with progress bars
+        - show_new_analysis()   — Upload JD + resumes, pick a model, run analysis
+        - show_change_password()— User password change form
+        - show_admin_panel()    — Admin: create/delete users
+        - show_debug_dashboard()— Admin: LLM call stats, cache hits, logs
+        - show_db_viewer()      — Admin: browse any database table
+        - main()                — Top-level routing between all pages
+        - run_async()           — Helper to run async code inside Streamlit
+
+  cli.py
+      Command-line interface entry point (alternative to Streamlit UI).
+
+
+================================================================================
+2. auth/                        — AUTHENTICATION & SESSION
+================================================================================
+
+  __init__.py
+      Exports login_user, logout_user, require_auth, create_tokens.
+
+  jwt_handler.py
+      Handles JWT (JSON Web Token) operations:
+        - create_tokens(user_id, username, is_admin)
+            Generates an access token (30 min) and refresh token (7 days).
+        - verify_access_token(token)
+            Decodes and validates access tokens.
+        - verify_refresh_token(token)
+            Decodes and validates refresh tokens.
+        - is_token_expired(token)
+            Checks if a given token has expired.
+
+  middleware.py
+      Session state management for Streamlit:
+        - login_user(user) -> (access, refresh)
+            Creates JWT tokens, stores them in st.session_state.
+            Returns the tokens so they can be persisted externally.
+        - logout_user()
+            Clears all auth keys from st.session_state.
+        - require_auth() -> bool
+            Checks if user is authenticated via session_state.
+            Handles silent token refresh if access token expired.
+
+  session_store.py
+      File-based session persistence (survives page refresh):
+        - save_session(user, access, refresh) -> session_id
+            Writes session data to sessions/{uuid}.json.
+            The session_id is stored in the URL via st.query_params.
+        - load_session(session_id) -> dict | None
+            Reads session data from file. Used on page refresh.
+        - delete_session(session_id)
+            Deletes the session file on logout.
+
+
+================================================================================
+3. core/                        — CONFIGURATION & UTILITIES
+================================================================================
+
+  This folder contains the foundational config that the ENTIRE app depends on.
+  Every other module imports from here. Think of it as the "settings panel"
+  of the application.
+
+  __init__.py
+      Exports: config (Settings instance), configure_logging (function).
+      Any module can do: from core import config
+
+  config.py  ⭐ MOST IMPORTANT FILE IN core/
+  --------------------------------------------------------------------------
+      Uses Pydantic's BaseSettings to load configuration from .env file.
+
+      What it defines:
+        database_url        = "sqlite+aiosqlite:///neuralcv.db"
+                              (the SQLite database path, async mode)
+        available_models    = list of LLM model identifiers, e.g.:
+                              "openai/gpt-4-turbo", "cohere/command-a-03-2025"
+                              (these appear in the model dropdown on New Analysis)
+        default_model       = "openai/gpt-4-turbo"
+        cohere_api_key      = loaded from .env → COHERE_API_KEY
+        openrouter_api_key  = loaded from .env → OPENROUTER_API_KEY
+        jwt_secret_key      = loaded from .env → JWT_SECRET_KEY (REQUIRED)
+                              (used to sign/verify JWT tokens for auth)
+        environment         = "development" or "production"
+
+      HOW IT WORKS:
+        1. load_dotenv() reads the .env file at the project root
+        2. Pydantic auto-maps env vars to class fields (case-insensitive)
+        3. config = Settings() creates a single global instance
+        4. Other files use it like: config.cohere_api_key, config.database_url
+
+      WHY IT MATTERS:
+        - Changing the model list? Edit available_models here.
+        - Changing the database? Edit database_url here.
+        - All API keys come from .env through this file.
+
+  constants.py
+  --------------------------------------------------------------------------
+      Simple Python constants shared across the app:
+
+        MAX_CONCURRENT_LLM_CALLS = 5
+            Controls how many resume→LLM calls can run in parallel.
+            Used by asyncio.Semaphore in analysis_service.py.
+
+        MAX_FILE_SIZE_MB = 10
+            Maximum allowed upload size for resume/JD files.
+
+        SUPPORTED_EXTENSIONS = [".pdf", ".docx", ".txt"]
+            Which file types are accepted for upload/scanning.
+
+  logging_config.py
+  --------------------------------------------------------------------------
+      Sets up centralized logging for the whole app:
+
+        configure_logging()
+            - Creates a logs/ directory if it doesn't exist
+            - Writes all logs to logs/app.log (with timestamps)
+            - Also prints logs to the terminal (StreamHandler)
+            - Format: "2026-02-26 14:30:00 - module_name - INFO - message"
+
+      Called once at startup in streamlit_app.py.
+      Every module then does: logger = logging.getLogger(__name__)
+
+  security.py
+  --------------------------------------------------------------------------
+      Password handling utilities using bcrypt:
+
+        hash_password(password) -> str
+            Takes a plain text password, returns a bcrypt hash string.
+            Used when creating/updating users in the database.
+
+        verify_password(password, password_hash) -> bool
+            Checks if a plain password matches a stored bcrypt hash.
+            Used during login in auth_service.py.
+
+        validate_password(password) -> (bool, str)
+            Enforces password complexity rules:
+              - Minimum 8 characters
+              - At least 1 uppercase letter
+              - At least 1 digit
+            Returns (True, "") if valid, (False, "reason") if not.
+            Used in the Change Password form and Admin user creation.
+
+
+================================================================================
+4. database/                    — DATABASE LAYER
+================================================================================
+
+  __init__.py
+      Exports engine, models, and repository functions.
+
+  engine.py
+      SQLAlchemy async engine setup:
+        - get_session()   — Creates an async database session.
+        - init_db()       — Creates all tables from the models.
+
+  models.py
+      SQLAlchemy ORM models:
+        - User             — user_id, username, hashed_password, is_admin,
+                             must_change_password
+        - Analysis          — analysis_id, analysis_name, jd_text,
+                             job_description_hash, resume_set_hash,
+                             resume_files_info, status, stage2_count, user_id
+        - Candidate         — candidate_id, name, summary, analysis_id,
+                             resume_hash, filename, was_cached
+        - ScoreBreakdown    — score_id, candidate_id, skill_match, exp_match,
+                             education_match, overall_score, rank, justification
+
+  ---- database/repositories/   — DATA ACCESS LAYER ----
+
+      __init__.py
+          Exports all repository functions.
+
+      analysis_repo.py
+          CRUD for analyses:
+            - create_analysis()         — Insert new analysis
+            - get_analysis_by_id()      — Fetch single analysis
+            - get_analyses_by_user()    — List all for a user
+            - find_existing_analysis()  — Check for duplicate (JD hash + resume set hash)
+            - update_analysis_status()  — Update status field
+            - delete_analysis()         — Remove analysis and related data
+
+      candidate_repo.py
+          CRUD for candidates:
+            - add_candidate()           — Insert candidate with resume_hash,
+                                          filename, and was_cached flag
+            - get_candidates_by_analysis() — List all candidates for an analysis
+            - get_cached_candidate_data()  — Find previously processed resume
+                                             by resume_hash + jd_hash (cache lookup)
+
+      score_repo.py
+          CRUD for score breakdowns:
+            - save_score_breakdown()    — Insert scores for a candidate
+            - get_score_by_candidate()  — Fetch scores for a candidate
+
+      user_repo.py
+          CRUD for users:
+            - create_user()             — Insert new user
+            - get_user_by_username()    — Lookup by username
+            - get_user_by_id()          — Lookup by ID
+            - list_all_users()          — List all users
+            - update_user_password()    — Change password
+            - delete_user()             — Remove user
+
+
+================================================================================
+5. domain/                      — DATA MODELS (Pydantic)
+================================================================================
+
+  __init__.py
+      Exports data models.
+
+  job_models.py
+      Pydantic model for Job Descriptions:
+        - JobDescription   — title, description
+
+  ranking_models.py
+      Pydantic models for Stage 2 ranking:
+        - RankedCandidate  — name, rank, justification
+        - RankingResult    — list of RankedCandidates
+
+  resume_models.py
+      Pydantic models for parsed resume data:
+        - ResumeData       — name, summary, skill_match, exp_match,
+                             education_match, overall_score
+        - Supports field aliases (skills_match -> skill_match, etc.)
+        - Validators to normalize scores to 0.0-1.0 range
+
+
+================================================================================
+6. llm/                         — LLM INTEGRATION LAYER
+================================================================================
+
+  __init__.py
+      Exports the LLM factory.
+
+  base.py
+      Abstract base class for LLM providers:
+        - LLMProvider (ABC)
+            - generate(prompt, model) -> str   [abstract method]
+
+  factory.py
+      Factory pattern to create the right LLM provider:
+        - get_llm_provider(provider_name) -> LLMProvider
+            Returns CohereProvider or OpenRouterProvider based on config.
+
+  ---- llm/providers/           — PROVIDER IMPLEMENTATIONS ----
+
+      __init__.py
+          Exports provider classes.
+
+      cohere_provider.py
+          Cohere SDK integration:
+            - CohereProvider.generate(prompt, model) -> str
+                Calls Cohere's chat API with the given prompt.
+                Uses cohere_api_key from config.
+
+      openrouter_provider.py
+          OpenRouter API integration (currently disabled):
+            - OpenRouterProvider.generate(prompt, model) -> str
+                Calls OpenRouter's completions API.
+
+
+================================================================================
+7. processing/                  — FILE PROCESSING
+================================================================================
+
+  __init__.py
+      Exports processing utilities.
+
+  resume_text_extractor.py
+      Extracts raw text from resume files:
+        - extract_text(file_path) -> str
+            Supports PDF (PyPDF2), DOCX (python-docx), and TXT files.
+            Auto-detects format by file extension.
+
+  resume_preprocessor.py
+      Cleans and normalizes extracted text:
+        - preprocess_text(raw_text) -> str
+            Removes extra whitespace, special characters, etc.
+
+  jd_processor.py
+      Processes Job Description text:
+        - process_jd(text) -> str
+            Cleans and structures JD text for LLM prompt.
+
+
+================================================================================
+8. services/                    — BUSINESS LOGIC
+================================================================================
+
+  __init__.py
+      Exports all service functions.
+
+  analysis_service.py
+      Core analysis orchestration:
+        - process_analysis(name, jd_text, resume_paths, user_id, model)
+            1. Checks for duplicate analysis (JD + resume set hash)
+            2. Creates analysis record in DB
+            3. STAGE 1: For each resume:
+               - Checks cache (resume_hash + jd_hash)
+               - If cached: clones previous results (was_cached=True)
+               - If new: calls LLM to parse & score (was_cached=False)
+            4. STAGE 2: Filters candidates >= 80% score
+               Top 10 qualified are sent for expert LLM ranking
+            5. Returns analysis_id
+        - get_user_analyses(user_id) — List all analyses for a user
+        - delete_analysis_by_id(id) — Delete analysis
+
+  auth_service.py
+      Authentication logic:
+        - authenticate_user(username, password) -> (user_dict, error)
+            Looks up user, verifies password, returns user info or error.
+
+  resume_service.py
+      Resume parsing and scoring:
+        - parse_and_score_resume(path, jd_text, model) -> ResumeData
+            Builds an LLM prompt, sends to Cohere, parses JSON response.
+            Includes robust error handling and diagnostic logging.
+        - flatten_result(data) -> dict
+            Normalizes LLM output: handles percentages ("85%" -> 0.85),
+            nested dicts, and ensures all scores are 0.0-1.0.
+
+  ranking_service.py
+      Stage 2 expert ranking:
+        - run_stage2_ranking(analysis_id, jd_text, candidates, model)
+            Sends top candidates to LLM for detailed comparison.
+            LLM returns rank + justification for each candidate.
+            Results are saved back to ScoreBreakdown table.
+
+  user_service.py
+      User management:
+        - create_user(username, password, is_admin) -> (user_id, error)
+        - change_password(user_id, current, new) -> (success, error)
+        - list_users() -> list of user dicts
+        - delete_user(user_id)
+
+
+================================================================================
+9. tests/                       — UNIT TESTS
+================================================================================
+
+  __init__.py
+      Test package initializer.
+
+  conftest.py
+      Pytest fixtures and shared test configuration.
+      Sets up test database, test users, etc.
+
+  test_auth.py
+      Tests for authentication:
+        - Token creation and verification
+        - Login/logout flows
+        - Password hashing
+
+  test_ranking.py
+      Tests for ranking service:
+        - Stage 2 ranking output validation
+        - Score normalization
+
+  test_scoring.py
+      Tests for resume scoring:
+        - Score parsing from LLM output
+        - Boundary value handling (0.0, 1.0)
+
+
+================================================================================
+10. utils/                      — SHARED UTILITIES
+================================================================================
+
+  __init__.py
+      Exports utility functions.
+
+  async_utils.py
+      Async helper functions:
+        - run_sync(coro) — Run async function synchronously.
+
+  file_handling.py
+      File system utilities:
+        - scan_resume_folder(folder_path) -> list[Path]
+            Scans a directory for valid resume files (.pdf, .docx, .txt).
+            Returns sorted list of file paths.
+
+  hash_utils.py
+      Hashing utilities for caching:
+        - hash_file(path) -> str
+            Computes SHA-256 hash of a file's contents.
+        - hash_text(text) -> str
+            Computes SHA-256 hash of a text string (used for JD hashing).
+        - hash_resume_set(paths) -> str
+            Combines individual file hashes into a single set hash.
+            Used to detect duplicate analysis runs.
+
+
+================================================================================
+11. ROOT FILES
+================================================================================
+
+  requirements.txt    — All Python dependencies
+  migrate_db.py       — Database migration script (adds new columns safely)
+  debug_dashboard.py  — Standalone debug dashboard (now integrated into main app)
+  db_viewer.py        — Standalone DB viewer (now integrated into main app)
+  .env                — Environment variables (API keys, secrets)
+  neuralcv.db         — SQLite database file (auto-created)
+  sessions/           — Folder for file-based session storage
+
+================================================================================

@@ -1,0 +1,364 @@
+
+==================================================
+FILE: Afrin_Peshimam_DataScientist_GenerativeAI_Resume_MAY2025.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'$defs': {'EducationItem': {'properties': {'degree': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Degree'}, 'institution': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Institution'}, 'year': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Year'}}, 'title': 'EducationItem', 'type': 'object'}, 'ExperienceItem': {'properties': {'role': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Role'}, 'years': {'anyOf': [{'type': 'number'}, {'type': 'null'}], 'default': 0.0, 'title': 'Years'}, 'company': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Company'}}, 'title': 'ExperienceItem', 'type': 'object'}}, 'properties': {'name': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': 'Unknown', 'title': 'Name'}, 'email': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Email'}, 'phone': {'anyOf': [{'type': 'string'
+
+==================================================
+FILE: aksh_resume_genai.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'$defs': {'EducationItem': {'properties': {'degree': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Degree'}, 'institution': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Institution'}, 'year': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Year'}}, 'title': 'EducationItem', 'type': 'object'}, 'ExperienceItem': {'properties': {'role': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Role'}, 'years': {'anyOf': [{'type': 'number'}, {'type': 'null'}], 'default': 0.0, 'title': 'Years'}, 'company': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Company'}}, 'title': 'ExperienceItem', 'type': 'object'}}, 'properties': {'name': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': 'Unknown', 'title': 'Name'}, 'email': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Email'}, 'phone': {'anyOf': [{'type': 'string'
+
+==================================================
+FILE: Jampana Tejaswini_Systems engineer.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'name': 'Jampana Tejaswini', 'email': 'tejaswini4310@gmail.com', 'phone': '9177884310', 'skills': ['Infrastructure Engineering', 'Windows Administration', 'Cloud Computing', 'VMware', 'PowerShell Scripting', 'System Security', 'Virtualization', 'Troubleshooting', 'Veeam', 'Commvault'], 'experience': [{'role': 'System Engineer', 'years': 1.0, 'company': 'RX Benefits'}, {'role': 'Engineer - Infrastructure Engineering', 'years': 1.0, 'company': 'Celanese Chemicals Private Limited'}, {'role': 'Cloud Infrastructure Services Associate III A3', 'years': 1.08, 'company': 'UST Global'}, {'role': 'Associate Engineer - Technology', 'years': 0.67, 'company': 'Virtusa Consulting Services Pvt Ltd'}, {'role': 'Analyst', 'years': 1.0, 'company': 'Tech Mahindra'}], 'education': [], 'total_experience': 4.75, 'relevant_experience': 0.0, 'summary': 'A highly motivated and detail-oriented IT professional with expertise in infrastructure engineering, Windows administration, and cloud computing. Adept at tr
+
+==================================================
+FILE: Jnan Yalla AIML.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'name': 'Jnan Yalla', 'email': 'jnanyalla@gmail.com', 'phone': '+919150859936', 'skills': ['Python', 'Java', 'C', 'TensorFlow', 'PyTorch', 'Hugging Face Models', 'Streamlit', 'Flask', 'Supervised Learning', 'Unsupervised Learning', 'Reinforcement Learning', 'NLP', 'Computer Vision', 'Neural Networks', 'Generative AI', 'Agentic AI', 'RNN', 'LSTM', 'GAN', 'Diffusers', 'Quantum Machine Learning', 'Quantum Neural Networks', 'Quantum Algorithms', 'Data Annotation', 'Vector Databases', 'Pydantic', 'LLM', 'LangChain', 'RAG Models', 'Statistics', 'Mathematics for ML', 'SFT', 'LoRA'], 'education': [{'degree': 'Bachelor of Technology in Computer Science and Engineering', 'institution': 'MallaReddy University', 'year': '2026 (expected)'}, {'degree': None, 'institution': 'Narayana Jr College', 'year': '2022'}], 'experience': [{'role': 'Sr. AI ML Engineer and Trainer', 'years': 1.75, 'company': 'Global One Services'}, {'role': 'Data Annotator and AI ML Engineer', 'years': 0.08, 'company': 'Soul AI
+
+==================================================
+FILE: GaneshResume1.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'name': 'BATHULAGANESH', 'email': 'bganesh986@gmail.com', 'phone': '+919703010089', 'skills': ['Python', 'Java', 'C', 'SQL', 'DBMS', 'Web Development', 'AI', 'ML', 'TensorFlow', 'PyTorch', 'AutoCAD', 'Revit Software', 'Data Science', 'Pandas', 'NumPy', 'Matplotlib', 'Seaborn', 'HTML', 'CSS', 'JavaScript', 'MongoDB', 'Git', 'Colab', 'Lighting AI', 'Jupyter Notebook', 'VSCode'], 'experience': [{'role': 'Data Science and Machine Learning Intern', 'years': 2, 'company': 'YBI Foundation'}, {'role': 'Machine Learning with Python Intern', 'years': 4, 'company': 'EdVedha'}, {'role': 'Data Science Intern', 'years': 2, 'company': 'Campalin'}, {'role': 'Machine Learning Intern', 'years': 1, 'company': 'Pantech E-learning Platform'}], 'education': [{'degree': 'B.Tech (CSE)', 'institution': 'Madanapalle Institute of Technology & Science', 'year': '06/2024'}, {'degree': 'Diploma (MECH)', 'institution': 'Sree Vidyanikethan Engineering College', 'year': '11/2020'}, {'degree': None, 'institution': 'Z.
+
+==================================================
+FILE: Kaustubh_Singhal_CV.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'name': 'Kaustubh Singhal', 'email': 'kaustubhsinghal28@gmail.com', 'phone': '+91 9821583308', 'skills': ['sklearn', 'XGBoost', 'forecasting', 'clustering', 'FAISS', 'Llama3', 'WebBasedBrowser', 'SmartScraperGraph', 'Passportmrz', 'EAST', 'PaddleOCR', 'BERT', 'Spacy', 'CRF models', 'Graph Transformers', 'Transformer', 'NER', 'Phi3.5', 'fuzzy logic', 'Siamese NN', 'Random Forest', 'Logistic Regression', 'SVM', 'NN', 'ARIMA', 'Prophet', 'GARCH', 'SQL', 'Docker', 'Kubernetes'], 'experience': [{'role': 'Product Data Scientist', 'years': 1.25, 'company': 'Maybank (MBB Labs Pvt. Ltd.)'}, {'role': 'Quantitative Researcher', 'years': 0.5, 'company': 'Credit Suisse Business Analytics'}, {'role': 'Synthetic Data Developer', 'years': 0.25, 'company': 'Indian Statistical Institute'}], 'education': [{'degree': 'Master of Technology in Quality, Reliability and Operations Research', 'institution': 'Indian Statistical Institute, Kolkata', 'year': '2022'}, {'degree': 'Bachelor of Technology in Mechani
+
+==================================================
+FILE: Document 5.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'name': 'Hariom Singh', 'email': 'harry_vbps@yahoo.co.in', 'phone': '+91-84274 48843', 'skills': ['Leadership', 'Team Building', 'AI', 'Machine Learning', 'Research', 'Innovation', 'Health Risk Modelling', 'Customer Insights', 'Personalization', 'Big Data Analytics', 'Cloud Computing', 'Product Strategy', 'Roadmap Execution', 'Python', 'R', 'Spark', 'Pyspark', 'SQL', 'Large Language Models', 'NLP', 'Deep Learning', 'Time Series', 'AWS', 'Azure', 'BigQuery', 'Databricks', 'Data Analytics', 'Survival Modelling'], 'education': [{'degree': 'MSC in Machine Learning and AI', 'institution': None, 'year': '2020-2022'}, {'degree': 'B Tech in CSE', 'institution': None, 'year': '2012-2016'}], 'experience': [{'role': 'Vice President - Research & Data Science', 'years': 3.0, 'company': 'AktivoLabs'}, {'role': 'Lead Data Scientist', 'years': 1.0, 'company': 'Applied Materials – Gyansys'}, {'role': 'Principal Data Scientist', 'years': 2.0, 'company': 'Yottaasys'}], 'total_experience': 8.0, 'relevant
+
+==================================================
+FILE: Data_Scientist_AsheshKumar_CV.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'name': 'Ashesh Kumar', 'email': 'ashesh3247@hotmail.com', 'phone': '9625846138', 'skills': ['Data Science', 'Machine Learning', 'sklearn', 'NumPy', 'Pandas', 'SciPy', 'Predictive & Statistical Modelling', 'NLP', 'NLTK', 'Spacy', 'Deep Learning', 'Keras', 'PyTorch', 'BERT', 'Transformers', 'GPT', 'OPENAI', 'GENAI', 'RAG', 'Langchain', 'LLM', 'Prompt Engineering', 'Python', 'Big Data', 'Hadoop', 'HDFS', 'SQL', 'PySpark', 'Microsoft Azure', 'Google Cloud', 'MLOps', 'Docker', 'Kubernetes', 'Azure OpenAI', 'Flask'], 'experience': [{'role': 'Associate Manager (Data Science)', 'years': 2.5, 'company': 'Ernst & Young, GDS'}], 'education': [], 'total_experience': 13.5, 'relevant_experience': 7, 'summary': 'Seasoned and credentialed Data Scientist with a solid 13.5-year IT background, bringing 7 years of specialized experience in advancing Data Science initiatives that bolster organizational efficiency, drive cost reductions, and refine analytical methodologies.', 'skills_text': 'Extensive exp
+
+==================================================
+FILE: DhananjayLokhande-SDE.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'name': 'Dhananjay Lokhande', 'email': 'lokhandejay90@gmail.com', 'phone': '8087350450', 'skills': ['LLMs', 'GPT-4.1', 'Gemini', 'Llama', 'Mistral', 'Frameworks', 'OpenAI', 'HuggingFace', 'LangChain', 'Haystack', 'Vector DB', 'FAISS', 'Chroma', 'Pinecone', 'Qdrant', 'Milvus', 'Languages', 'Python', 'Database', 'Oracle', 'MongoDB', 'Postgres', 'SQL/NoSQL', 'ML', 'Supervised', 'Unsupervised', 'NLP', 'TF-IDF', 'Word2Vec', 'Regex', 'NLTK', 'Spacy', 'DL', 'ANN', 'DNN', 'RNN', 'CNN', 'Transformers', 'BERT', 'APIs', 'FastAPI', 'Agents', 'LangGraph', 'CrewAI', 'Autogen'], 'experience': [{'role': 'Senior Data Engineer', 'years': 1.0, 'company': 'Maveric Systems'}, {'role': 'Associate Machine Learning Engineer', 'years': 2.5, 'company': 'Keylong Systems'}], 'education': [{'degree': 'Bachelor of Engineering', 'institution': 'University of Mumbai', 'year': None}], 'total_experience': 3.5, 'relevant_experience': 3.5, 'summary': 'Senior Data Engineer with 4 years of hands-on experience developing a
+
+==================================================
+FILE: Afrin_Peshimam_DataScientist_GenerativeAI_Resume_MAY2025.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'name': 'Afrin Peshimam', 'email': 'peshimam.afrin@gmail.com', 'phone': '+91 8169741805', 'skills': ['Azure AI Foundry', 'Azure AI Agent', 'AutoGen Framework', 'Azure OpenAI Service', 'Python', 'Docker', 'Azure API Management', 'Azure Cosmos DB', 'Microsoft Sentinel', 'Git', 'Azure DevOps', 'Jira', 'FastAPI', 'AWS Bedrock', 'MongoDB', 'Celery', 'Redis'], 'experience': [{'role': 'Generative AI Engineer', 'years': 4, 'company': 'Nallas Corporation'}, {'role': 'Senior Data Scientist', 'years': 5, 'company': 'XLSCOUT'}], 'education': [{'degree': "Bachelor's in Computer Science", 'institution': 'Unknown', 'year': None}], 'total_experience': 9, 'relevant_experience': 9, 'skills_match': 0.85, 'experience_match': 0.9, 'edu_match': 0.9, 'total_score': 0.88, 'filename': None, 'resume_hash': None, 'raw_text': None, 'rank': None, 'justification': 'Candidate Afrin Peshimam excels in necessary skills and experience pertinent to the Senior AI Engineer role, scoring highly in Gen AI and data engineer
+
+==================================================
+FILE: Arpit_Rathi_Resume.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'name': 'Arpit Rathi', 'email': 'arpitrathi237@gmail.com', 'phone': '+91-9167395117', 'skills': ['Machine Learning', 'Deep Learning', 'Data Science', 'NLP', 'Computer Vision', 'Python', 'C', 'C++', 'R', 'MATLAB', 'Java', 'PySpark', 'SQL', 'AWS', 'Azure', 'GCP', 'Pandas', 'NumPy', 'SciKit-Learn', 'Matplotlib', 'Plotly', 'Seaborn', 'NLTK', 'CoreNLP', 'SpaCy', 'OpenAI Models', 'HuggingFace Transformers', 'LangChain', 'TensorFlow', 'Keras', 'PyTorch'], 'experience': [{'role': 'Lead Data Engineer', 'years': 0.75, 'company': 'Oliver Wyman'}, {'role': 'Manager - Machine Learning', 'years': 2, 'company': 'Heal Software'}, {'role': 'Machine Learning Engineer', 'years': 0.67, 'company': 'Emtropy Labs'}, {'role': 'R&D Engineer', 'years': 0.33, 'company': 'Next Education'}], 'education': [{'degree': 'M.Tech: Microelectronics', 'institution': 'IIT Bombay', 'year': '2017'}, {'degree': 'B.Tech: Electrical Engineering', 'institution': 'IIT Bombay', 'year': '2017'}], 'total_experience': 3.75, 'relevan
+
+==================================================
+FILE: aksh_resume_genai.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'name': 'Aksh Chaudhary', 'email': 'akshshalot@gmail.com', 'phone': '+91-9368207638', 'skills': ['Graph RAG', 'VAE', 'Azure Cosmos DB', 'BERT', 'Flan T5', 'SVM', 'Random Forest', 'XGBoost', 'LightGBM', 'K-Means', 'DBSCAN', 'NMT', 'POS Tagging', 'Matplotlib', 'Seaborn', 'GRU', 'LSTM', 'CNN', 'NER', 'Word2Vec', 'ASR', 'TTS', 'OCR', 'CI/CD', 'Web Apps', 'Automated Testing', 'Kubernetes', 'Deployment Slots', 'Azure', 'GCP', 'AWS'], 'education': [{'degree': 'B.Tech', 'institution': 'Graphic Era University', 'year': '2025'}, {'degree': 'Higher Senior Secondary', 'institution': 'M.D. International School', 'year': '2021'}, {'degree': 'Senior Secondary', 'institution': 'St. Mary’s School', 'year': '2019'}], 'experience': [{'role': 'AI/ML Engineer', 'years': 0.1, 'company': 'United Parcel Service - Marken, UPS Precision Healthcare Logistics'}, {'role': 'Generative AI Intern', 'years': 0.75, 'company': 'Tap Health'}], 'total_experience': 0.85, 'relevant_experience': 0.85, 'skills_match': 0.85, 
+
+==================================================
+FILE: Yugesh_Madala_DS_3y.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'$defs': {'EducationItem': {'properties': {'degree': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Degree'}, 'institution': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Institution'}, 'year': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Year'}}, 'title': 'EducationItem', 'type': 'object'}, 'ExperienceItem': {'properties': {'role': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Role'}, 'years': {'anyOf': [{'type': 'number'}, {'type': 'null'}], 'default': 0.0, 'title': 'Years'}, 'company': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Company'}}, 'title': 'ExperienceItem', 'type': 'object'}}, 'properties': {'name': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': 'Unknown', 'title': 'Name'}, 'email': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Email'}, 'phone': {'anyOf': [{'type': 'string'
+
+==================================================
+FILE: DhananjayLokhande-SDE.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'name': 'Dhananjay Lokhande', 'email': 'lokhandejay90@gmail.com', 'phone': '8087350450', 'skills': ['LLMs: GPT-4.1, Gemini, Llama, Mistral', 'Frameworks: OpenAI, HuggingFace, LangChain, Haystack', 'Vector DB: FAISS, Chroma, Pinecone, Qdrant, Milvus', 'Languages: Python', 'Database: Oracle, MongoDB, Postgres, SQL/NoSQL', 'ML: Supervised and Unsupervised', 'NLP: TF-IDF, Word2Vec, Regex, NLTK, Spacy', 'DL: ANN, DNN, RNN, CNN, Transformers, BERT', 'APIs: FastAPI', 'Agents: LangGraph, CrewAI, Autogen'], 'experience': [{'role': 'Senior Data Engineer', 'years': 0.5, 'company': 'Maveric Systems'}, {'role': 'Associate Machine Learning Engineer', 'years': 2.5, 'company': 'Keylong Systems'}], 'education': [{'degree': 'Bachelor of Engineering', 'institution': 'University of Mumbai', 'year': None}], 'total_experience': 3.0, 'relevant_experience': 3.0, 'summary': 'Senior Data Engineer with 4 years of hands-on experience developing and implementing end-to-end AI/ML solutions and Generative AI applic
+
+==================================================
+FILE: Afrin_Peshimam_DataScientist_GenerativeAI_Resume_MAY2025.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'name': 'Afrin Peshimam', 'email': 'peshimam.afrin@gmail.com', 'phone': '+91 8169741805', 'skills': ['Generative AI', 'Azure AI', 'RAG', 'LLM fine-tuning', 'Azure AI Search', 'Docker', 'Kubernetes', 'CI/CD', 'Spark', 'Kafka', 'SQL', 'MLflow', 'Kubeflow'], 'experience': [{'role': 'Generative AI Engineer', 'years': 1.0, 'company': 'Nallas Corporation'}, {'role': 'Senior Data Scientist', 'years': 3.0, 'company': 'XLSCOUT'}], 'education': [{'degree': None, 'institution': None, 'year': None}], 'total_experience': 4.0, 'relevant_experience': 4.0, 'summary': 'Generative AI Engineer/Architect specializing in designing and deploying sophisticated Gen AI solutions on Microsoft Azure with prior experience as Senior Data Scientist with proven success in demanding startup environments.', 'skills_text': 'Generative AI, Azure AI, RAG, LLM fine-tuning, Azure AI Search, Docker, Kubernetes, CI/CD, Spark, Kafka, SQL, MLflow, Kubeflow', 'experience_text': 'Generative AI Engineer at Nallas Corporation (De
+
+==================================================
+FILE: aksh_resume_genai.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'name': 'Aksh Chaudhary', 'email': 'akshshalot@gmail.com', 'phone': '+91-9368207638', 'skills': ['Graph RAG', 'VAE', 'Azure Cosmos DB', 'BERT', 'Flan T5', 'SVM', 'Random Forest', 'XGBoost', 'LightGBM', 'K-Means', 'DBSCAN', 'NMT', 'POS Tagging', 'Matplotlib', 'Seaborn', 'GRU', 'LSTM', 'CNN', 'NER', 'Word2Vec', 'ASR', 'TTS', 'OCR', 'CI/CD', 'Web Apps', 'Automated Testing', 'Kubernetes', 'Deployment Slots', 'Azure', 'GCP', 'AWS'], 'experience': [{'role': 'AI/ML Engineer', 'years': 0.1, 'company': 'United Parcel Service - Marken, UPS Precision Healthcare Logistics'}, {'role': 'Generative AI Intern', 'years': 0.75, 'company': 'Tap Health'}], 'education': [{'degree': 'B.Tech', 'institution': 'Graphic Era University', 'year': '2021 – 2025'}, {'degree': 'Higher Senior Secondary', 'institution': 'M.D. International School', 'year': '2019 – 2021'}, {'degree': 'Senior Senior Secondary', 'institution': 'St. Mary’s School', 'year': '2007 – 2019'}], 'total_experience': 0.85, 'relevant_experience': 
+
+==================================================
+FILE: Arpit_Rathi_Resume.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'name': 'ARPIT RATHI', 'email': 'arpitrathi237@gmail.com', 'phone': '+91 -9167395117', 'skills': ['Machine Learning', 'Deep Learning', 'Data Science', 'NLP', 'Computer Vision', 'Research', 'Python', 'C', 'C++', 'R', 'MATLAB', 'Java', 'PySpark', 'SQL', 'AWS', 'Azure', 'GCP', 'Generative AI with LLMs Course', 'Deep Learning Course', 'MLOps Specializations', 'Probabilistic Models', 'Probability & Random Processes', 'Data Analysis & Interpretation', 'Linear Algebra', 'Calculus', 'Differential Equations I & II', 'Complex Analysis', 'Pandas', 'NumPy', 'SciKit-Learn', 'Matplotlib', 'Plotly', 'Seaborn', 'NLTK', 'CoreNLP', 'SpaCy', 'OpenAI Models', 'HuggingFace Transformers', 'LangChain', 'TensorFlow', 'Keras', 'PyTorch'], 'experience': [{'role': 'Lead Data Engineer', 'years': 0.75, 'company': 'Oliver Wyman [BU - DMU] – India'}, {'role': 'Manager - Machine Learning', 'years': 2.0, 'company': 'Heal Software [Appnomic Systems] – India (Remote)'}, {'role': 'Machine Learning Engineer', 'years': 0.
+
+==================================================
+FILE: Document 5.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'name': 'Hariom Singh', 'email': 'harry_vbps@yahoo.co.in', 'phone': '+91-84274-48843', 'skills': ['Leadership & Team Building', 'AI & Machine Learning Research & Innovation', 'Health Risk Modelling', 'Customer Insights & Personalization', 'Big Data Analytics', 'Cloud Computing', 'Product Strategy & Roadmap Execution', 'Python', 'R', 'Spark', 'Pyspark', 'SQL', 'Large Language Models (LLM) NLP', 'Machine Learning', 'Deep Learning', 'Time Series', 'AWS', 'Azure', 'Bigquery', 'Databricks', 'Data Analytics', 'Survival Modelling'], 'experience': [{'role': 'Vice President, Research & Data Science', 'years': 3, 'company': 'Aktivolabs'}, {'role': 'Lead Data Scientist', 'years': 1, 'company': 'Applied Materials - Gyansys'}, {'role': 'Principal Data Scientist', 'years': 2, 'company': 'Yottaasys'}], 'education': [{'degree': 'MSc in Machine Learning and AI', 'institution': None, 'year': '2022'}, {'degree': 'B Tech in CSE', 'institution': None, 'year': '2016'}], 'total_experience': 8, 'relevant_exp
+
+==================================================
+FILE: Jampana Tejaswini_Systems engineer.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'name': 'Jampana Tejaswini', 'email': 'tejaswini4310@gmail.com', 'phone': '9177884310', 'skills': ['PowerShell scripting', 'Windows administration', 'Cloud computing', 'VMware', 'Hyper-V', 'System security', 'Automation', 'Disaster recovery', 'Data center management'], 'experience': [{'role': 'System Engineer', 'years': 0.08, 'company': 'RX Benefits'}, {'role': 'Engineer - Infrastructure Engineering', 'years': 0.92, 'company': 'Celanese Chemicals Private Limited'}, {'role': 'Cloud Infrastructure Services Associate III A3', 'years': 1.08, 'company': 'UST Global'}, {'role': 'Associate Engineer - Technology', 'years': 0.75, 'company': 'Virtusa Consulting Services Pvt Ltd'}, {'role': 'Analyst', 'years': 1.0, 'company': 'Tech Mahindra'}], 'education': [], 'total_experience': 3.83, 'relevant_experience': 0.0, 'summary': 'A highly motivated and detail-oriented IT professional with expertise in infrastructure engineering, Windows administration, and cloud computing. Adept at troubleshooting c
+
+==================================================
+FILE: GaneshResume1.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'name': 'Bathulaganesh', 'email': 'ganesh986@gmail.com', 'phone': '+919703010089', 'skills': ['Python', 'Java', 'C (Basics)', 'SQL', 'DBMS', 'Web Development', 'AI/ML: TensorFlow', 'PyTorch', 'AutoCAD', 'Revit Software', 'Scikit-learn', 'Data Science: Pandas', 'NumPy', 'Matplotlib', 'Seaborn', 'Web Development: HTML', 'CSS', 'JavaScript', 'Databases: SQL', 'MongoDB', 'Version Control: Git', 'Tools: Colab', 'Lighting AI', 'Jupyter Notebook', 'VSCode'], 'experience': [{'role': 'Data Science and Machine Learning Intern', 'years': 0.1667, 'company': 'YBI Foundation'}, {'role': 'Machine Learning with Python Intern', 'years': 0.3333, 'company': 'Ed Vedha'}, {'role': 'Data Science Intern', 'years': 0.1667, 'company': 'Campalin'}, {'role': 'Machine Learning Intern', 'years': 0.0833, 'company': 'Pantech E-learning Platform'}], 'education': [{'degree': 'B.Tech (CSE)', 'institution': 'Madanapalle Institute of Technology & Science', 'year': '06/2024'}, {'degree': 'Diploma (MECH)', 'institution': 
+
+==================================================
+FILE: Kaustubh_Singhal_CV.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'name': 'Kaustubh Singhal', 'email': 'kaustubhsinghal28@gmail.com', 'phone': '+91 9821583308', 'skills': ['Python', 'sklearn', 'FAISS', 'Llama3', 'LangChain', 'Docker', 'Kubernetes', 'CI/CD', 'MLflow', 'GCP', 'AWS', 'Azure', 'BERT', 'CRF', 'Graph Transformers', 'pandas', 'numpy', 'scikit-learn', 'mlflow', 'xgboost', 'lightgbm', 'spark', 'sql', 'airflow', 'feature stores', 'RAG', 'Fine-tuning', 'vector DBs', 'MLOps', 'pytorch', 'tensorflow'], 'experience': [{'role': 'Product Data Scientist', 'years': 2.0, 'company': 'Maybank (MBB Labs Pvt. Ltd.)'}, {'role': 'Quantitative Researcher', 'years': 0.5, 'company': 'Credit Suisse Business Analytics'}, {'role': 'Placement Representative', 'years': 1.67, 'company': 'ISI Kolkata Placement Committee'}], 'education': [{'degree': 'Master of Technology in Quality, Reliability and Operations Research', 'institution': 'Indian Statistical Institute, Kolkata', 'year': 'Aug 2022'}, {'degree': 'Bachelor of Technology in Mechanical Engineering', 'instituti
+
+==================================================
+FILE: Jnan Yalla AIML.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'name': 'Jnan Yalla', 'email': 'jnanyalla@gmail.com', 'phone': '+919150859936', 'skills': ['Python', 'Java', 'C', 'TensorFlow', 'PyTorch', 'Hugging Face Models', 'Streamlit', 'Flask', 'Supervised/Unsupervised Learning', 'Reinforcement Learning', 'NLP', 'Computer Vision', 'Neural Networks', 'Generative AI', 'Agentic AI', 'RNN', 'LSTM', 'GAN', 'Diffusers', 'Quantum Machine Learning', 'Quantum Neural Networks', 'Quantum Algorithms', 'Data Annotation', 'Vector Databases', 'Pydantic', 'LLM', 'LangChain', 'RAG Models', 'Statistics', 'Mathematics for ML', 'SFT', 'LoRA'], 'experience': [{'role': 'Sr. AIML Engineer and Trainer', 'years': 1.0, 'company': 'Global One Services'}, {'role': 'Data Annotator and AIML Engineer', 'years': 0.1, 'company': 'Soul AI'}, {'role': 'Business Associate and Trainer', 'years': 0.2, 'company': 'Waves Organization'}, {'role': 'Quantum Machine Learning Intern', 'years': 0.5, 'company': None}], 'education': [{'degree': 'Bachelor of Technology in Computer Science and
+
+==================================================
+FILE: Data_Scientist_AsheshKumar_CV.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'name': 'Ashesh Kumar', 'email': 'ashesh3247@hotmail.com', 'phone': '9625846138', 'skills': ['Data Science', 'Machine Learning (Scikit, NumPy, Pandas, SciPy)', 'Predictive & Statistical Modelling', 'NLP (NLTK, Spacy)', 'Deep Learning (Keras, PyTorch)', 'BERT', 'Transformers', 'GPT', 'OPENAI', 'GENAI', 'RAG', 'Langchain', "LLM's (Large Language Model)", 'Prompt Engineering', 'Python', 'Big Data (Hadoop, HDFS, SQL, PySpark)', 'Microsoft Azure', 'Google Cloud (GCP)', 'MLOps', 'Docker', 'Kubernetes', 'Azure OpenAI', 'Flask'], 'experience': [{'role': 'Associate Manager (Data Science)', 'years': 2.5, 'company': 'Ernst & Young, GDS'}], 'education': [], 'total_experience': 13.5, 'relevant_experience': 7.0, 'summary': 'Seasoned and credentialed Data Scientist with a solid 13.5-year IT background, bringing 7 years of specialized experience in advancing Data Science initiatives that bolster organizational efficiency, drive cost reductions, and refine analytical methodologies. My expertise spans 
+
+==================================================
+FILE: MAYANK KHANDUJA .pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'name': 'Mayank Khanduja', 'email': 'mayankkhanduja8@gmail.com', 'phone': '+91-9013028638', 'skills': ['Agentic AI', 'RAG', 'Ollama', 'NLP', 'Transformers', 'Fine-Tuning', 'LLM', 'Multimodals', 'Langgraph', 'Vector Database', 'Docker', 'PyTorch', 'Visual Search', 'Recommendation System'], 'experience': [{'role': 'Data Scientist', 'years': 3.5, 'company': 'Esri'}, {'role': 'Data Scientist', 'years': 2.0, 'company': 'Esri'}], 'education': [{'degree': 'B.Tech in Computer Science and Engineering', 'institution': 'SRM University', 'year': '2019'}], 'total_experience': 5.5, 'relevant_experience': 5.5, 'summary': 'Experienced Data Scientist with expertise in AI/ML, LLMs, and data engineering. Developed RAG systems, fine-tuned models, and built scalable data pipelines.', 'skills_text': 'Agentic AI, RAG, Ollama, NLP, Transformers, Fine-Tuning, LLM, Multimodals, Langgraph, Vector Database, Docker, PyTorch, Visual Search, Recommendation System', 'experience_text': 'Worked at Esri as a Data Scien
+
+==================================================
+FILE: Manognya_resume_latest.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'$defs': {'EducationItem': {'properties': {'degree': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Degree'}, 'institution': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Institution'}, 'year': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Year'}}, 'title': 'EducationItem', 'type': 'object'}, 'ExperienceItem': {'properties': {'role': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Role'}, 'years': {'anyOf': [{'type': 'number'}, {'type': 'null'}], 'default': 0.0, 'title': 'Years'}, 'company': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Company'}}, 'title': 'ExperienceItem', 'type': 'object'}}, 'properties': {'name': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': 'Unknown', 'title': 'Name'}, 'email': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Email'}, 'phone': {'anyOf': [{'type': 'string'
+
+==================================================
+FILE: Khushdeep_CV.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'$defs': {'EducationItem': {'properties': {'degree': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Degree'}, 'institution': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Institution'}, 'year': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Year'}}, 'title': 'EducationItem', 'type': 'object'}, 'ExperienceItem': {'properties': {'role': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Role'}, 'years': {'anyOf': [{'type': 'number'}, {'type': 'null'}], 'default': 0.0, 'title': 'Years'}, 'company': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Company'}}, 'title': 'ExperienceItem', 'type': 'object'}}, 'properties': {'name': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': 'Unknown', 'title': 'Name'}, 'email': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Email'}, 'phone': {'anyOf': [{'type': 'string'

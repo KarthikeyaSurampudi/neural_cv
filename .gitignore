@@ -1,0 +1,29 @@
+# Virtual Environment folders
+/Lib
+/Scripts
+/Include
+/etc
+/share
+/temp_uploads
+/sessions
+pyvenv.cfg
+pyvenv
+
+# Environment variables
+.env
+
+# Database and related files
+neuralcv.db
+
+# Documentation
+CHANGELOG.txt
+
+# Python scripts to ignore
+db_viewer.py
+debug_dashboard.py
+migrate_db.py
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class

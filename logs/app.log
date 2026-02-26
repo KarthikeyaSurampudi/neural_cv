@@ -1,0 +1,174 @@
+2026-02-25 11:54:33,894 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-25 11:54:34,179 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-25 11:54:34,410 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-25 11:54:34,446 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-25 11:54:34,499 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-25 11:54:49,891 - sqlalchemy.pool.impl.AsyncAdaptedQueuePool - ERROR - Exception during reset or similar
+Traceback (most recent call last):
+  File "A:\Work\neural_cv_refined\app\streamlit_app.py", line 33, in run_async
+    loop = asyncio.get_event_loop()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MoinKhan\AppData\Local\Programs\Python\Python311\Lib\asyncio\events.py", line 681, in get_event_loop
+    raise RuntimeError('There is no current event loop in thread %r.'
+RuntimeError: There is no current event loop in thread 'ScriptRunner.scriptThread'.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\MoinKhan\AppData\Local\Programs\Python\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\MoinKhan\AppData\Local\Programs\Python\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MoinKhan\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "A:\Work\neural_cv_refined\app\streamlit_app.py", line 372, in main
+    await show_new_analysis(user)
+  File "A:\Work\neural_cv_refined\app\streamlit_app.py", line 250, in show_new_analysis
+    result = await process_analysis(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Work\neural_cv_refined\services\analysis_service.py", line 71, in process_one
+    resume_data = await parse_and_score_resume(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Work\neural_cv_refined\services\resume_service.py", line 41, in parse_and_score_resume
+    return ResumeData(**result)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "A:\Work\neural_cv_refined\Lib\site-packages\pydantic\main.py", line 250, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 2 validation errors for ResumeData
+summary
+  Input should be a valid string [type=string_type, input_value={'years_it_experience': 1...zure', 'Google Cloud']}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/string_type
+skill_match
+  Input should be a valid number [type=float_type, input_value={'ML_experience': True, '...MLOps_experience': True}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/float_type
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "A:\Work\neural_cv_refined\Lib\site-packages\sqlalchemy\pool\base.py", line 985, in _finalize_fairy
+    fairy._reset(
+  File "A:\Work\neural_cv_refined\Lib\site-packages\sqlalchemy\pool\base.py", line 1433, in _reset
+    pool._dialect.do_rollback(self)
+  File "A:\Work\neural_cv_refined\Lib\site-packages\sqlalchemy\engine\default.py", line 712, in do_rollback
+    dbapi_connection.rollback()
+  File "A:\Work\neural_cv_refined\Lib\site-packages\sqlalchemy\dialects\sqlite\aiosqlite.py", line 307, in rollback
+    self.await_(self._connection.rollback())
+  File "A:\Work\neural_cv_refined\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Work\neural_cv_refined\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "A:\Work\neural_cv_refined\Lib\site-packages\aiosqlite\core.py", line 197, in rollback
+    await self._execute(self._conn.rollback)
+  File "A:\Work\neural_cv_refined\Lib\site-packages\aiosqlite\core.py", line 160, in _execute
+    return await future
+           ^^^^^^^^^^^^
+asyncio.exceptions.CancelledError
+2026-02-25 12:03:55,181 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 12:03:55,526 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 12:03:55,907 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 12:03:56,693 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 12:04:01,726 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 12:04:01,815 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 12:04:09,270 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 12:09:56,669 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 12:11:59,540 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 12:15:10,107 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 12:15:10,706 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 12:15:10,876 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 12:15:14,943 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 12:15:17,076 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 12:15:17,112 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 12:15:21,376 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 12:17:07,258 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 12:17:08,493 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 12:17:15,643 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 12:17:15,914 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 12:17:22,405 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 12:17:31,731 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 12:17:44,158 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 14:46:10,336 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 14:46:13,103 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 14:46:16,642 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 14:46:17,914 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 14:46:26,518 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 14:51:58,804 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 14:52:00,383 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 14:52:04,437 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 15:06:29,752 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 15:06:31,151 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 15:06:31,308 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 15:06:36,064 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 15:06:40,564 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 15:11:35,210 - services.resume_service - INFO - Processing candidate: Afrin_Peshimam_DataScientist_GenerativeAI_Resume_MAY2025.pdf
+2026-02-25 15:11:36,539 - services.resume_service - INFO - Processing candidate: aksh_resume_genai.pdf
+2026-02-25 15:11:58,437 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 15:12:02,162 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 15:12:02,300 - services.ranking_service - INFO - Stage 2 ranking 2 candidates for analysis 2cf9d84290b246bd8b989e2935652060
+2026-02-25 15:12:05,028 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 15:37:28,909 - services.resume_service - INFO - Processing candidate: Jnan Yalla AIML.pdf
+2026-02-25 15:37:30,088 - services.resume_service - INFO - Processing candidate: Kaustubh_Singhal_CV.pdf
+2026-02-25 15:37:30,967 - services.resume_service - INFO - Processing candidate: Jampana Tejaswini_Systems engineer.pdf
+2026-02-25 15:37:31,763 - services.resume_service - INFO - Processing candidate: GaneshResume1.pdf
+2026-02-25 15:37:32,395 - services.resume_service - INFO - Processing candidate: Document 5.pdf
+2026-02-25 15:37:34,496 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-25 15:37:34,682 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-25 15:37:34,687 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-25 15:37:34,853 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-25 15:37:34,917 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-25 15:37:48,768 - services.resume_service - INFO - Processing candidate: DhananjayLokhande-SDE.pdf
+2026-02-25 15:37:49,657 - services.resume_service - INFO - Processing candidate: Data_Scientist_AsheshKumar_CV.pdf
+2026-02-25 15:37:50,501 - services.resume_service - INFO - Processing candidate: Arpit_Rathi_Resume.pdf
+2026-02-25 15:37:51,004 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-25 15:37:51,474 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-25 15:37:52,384 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-25 15:37:56,000 - services.resume_service - INFO - Processing candidate: aksh_resume_genai.pdf
+2026-02-25 15:37:57,015 - services.resume_service - INFO - Processing candidate: Afrin_Peshimam_DataScientist_GenerativeAI_Resume_MAY2025.pdf
+2026-02-25 15:37:57,700 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-25 15:37:58,750 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-25 15:38:16,100 - services.ranking_service - INFO - Stage 2 ranking 10 candidates for analysis 5c25ebb34d5447ad95682ba4003cc89d
+2026-02-25 15:38:17,287 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-25 15:51:43,534 - services.resume_service - INFO - Processing candidate: Yugesh_Madala_DS_3y.pdf
+2026-02-25 15:52:38,293 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-25 15:52:38,378 - services.ranking_service - INFO - Stage 2 ranking 4 candidates for analysis 7789e1fb6d1e4ada8cbc35ce13b5d644
+2026-02-25 15:52:42,961 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-26 14:27:09,178 - services.resume_service - INFO - Processing candidate: Afrin_Peshimam_DataScientist_GenerativeAI_Resume_MAY2025.pdf
+2026-02-26 14:27:11,471 - services.resume_service - INFO - Processing candidate: aksh_resume_genai.pdf
+2026-02-26 14:27:12,009 - services.resume_service - INFO - Processing candidate: Arpit_Rathi_Resume.pdf
+2026-02-26 14:27:12,717 - services.resume_service - INFO - Processing candidate: Data_Scientist_AsheshKumar_CV.pdf
+2026-02-26 14:27:13,226 - services.resume_service - INFO - Processing candidate: DhananjayLokhande-SDE.pdf
+2026-02-26 14:27:15,489 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-26 14:27:15,547 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-26 14:27:15,550 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-26 14:27:15,564 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-26 14:27:15,570 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-26 14:27:35,027 - services.resume_service - INFO - Processing candidate: Document 5.pdf
+2026-02-26 14:27:36,677 - services.resume_service - INFO - Processing candidate: GaneshResume1.pdf
+2026-02-26 14:27:37,199 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-26 14:27:37,925 - services.resume_service - INFO - Processing candidate: Jampana Tejaswini_Systems engineer.pdf
+2026-02-26 14:27:38,434 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-26 14:27:39,280 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-26 14:27:53,029 - services.resume_service - INFO - Processing candidate: Jnan Yalla AIML.pdf
+2026-02-26 14:27:54,435 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-26 14:28:00,049 - services.resume_service - INFO - Processing candidate: Kaustubh_Singhal_CV.pdf
+2026-02-26 14:28:01,292 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-26 14:29:38,400 - services.ranking_service - INFO - Stage 2 ranking 8 candidates for analysis 7156e15ec05c42b894e4ad9790a3ed90
+2026-02-26 14:29:39,858 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-26 14:41:35,177 - services.resume_service - INFO - Processing candidate: MAYANK KHANDUJA .pdf
+2026-02-26 14:41:36,650 - services.resume_service - INFO - Processing candidate: Manognya_resume_latest.pdf
+2026-02-26 14:41:37,153 - services.resume_service - INFO - Processing candidate: Khushdeep_CV.pdf
+2026-02-26 14:41:38,033 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 404 Not Found"
+2026-02-26 14:41:38,040 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 404 Not Found"
+2026-02-26 14:42:23,151 - services.resume_service - INFO - Processing candidate: Manognya_resume_latest.pdf
+2026-02-26 14:42:25,017 - services.resume_service - INFO - Processing candidate: Khushdeep_CV.pdf
+2026-02-26 14:42:25,877 - services.resume_service - INFO - Processing candidate: MAYANK KHANDUJA .pdf
+2026-02-26 14:42:34,701 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-26 14:42:53,839 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-26 14:43:00,937 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-26 14:43:01,068 - services.ranking_service - INFO - Stage 2 ranking 4 candidates for analysis 4dfa3c0c5b7847b29f1fa0dddad0f67c
+2026-02-26 14:43:19,981 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
