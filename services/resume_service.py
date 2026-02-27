@@ -102,7 +102,11 @@ RESUME:
 """
 
     # ---------------- FIRST ATTEMPT ----------------
-    result = await provider.chat(prompt)
+    try:
+        result = await provider.chat(prompt)
+    except Exception as e:
+        logger.warning(f"LLM Chat Call failed for {path.name}: {e}")
+        result = {}
 
     # Diagnostic Dump
     try:

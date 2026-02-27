@@ -358,77 +358,77 @@ async def show_new_analysis(user):
 
     if st.button("🚀 Run Analysis", use_container_width=True, type="primary"):
 
-        if not analysis_name:
-            st.warning("Enter an analysis name.")
-            return
-        if not jd_file and not jd_text:
-            st.warning("Provide a JD.")
-            return
-
         # Handle JD
         from processing.resume_text_extractor import extract_text
-        if jd_file:
-            temp_jd = Path("temp_uploads") / jd_file.name
-            temp_jd.parent.mkdir(exist_ok=True)
-            temp_jd.write_bytes(jd_file.getbuffer())
-            jd_text = extract_text(temp_jd)
+        import shutil
+        import uuid
 
-        # Handle resumes
-        if resume_files:
-            temp_dir = Path("temp_uploads")
-            temp_dir.mkdir(exist_ok=True)
-            for f in resume_files:
-                p = temp_dir / f.name
-                p.write_bytes(f.getbuffer())
-                resume_paths.append(p)
-        elif resume_folder:
-            from utils.file_handling import scan_resume_folder
-            resume_paths = scan_resume_folder(resume_folder)
-        else:
-            st.warning("Upload resumes or provide a folder.")
-            return
-
-        if not resume_paths:
-            st.warning("No valid resumes found.")
-            return
-
-        # ---------- LIVE PROGRESS ----------
-        progress_bar = st.progress(0, text="Initializing...")
-        status_box = st.empty()
-
-        def on_progress(phase, current, total, message):
-            if phase == "stage1":
-                pct = current / total if total > 0 else 0
-                progress_bar.progress(pct, text=f"Stage 1 — {current}/{total} resumes")
-                status_box.caption(message)
-            elif phase == "stage2":
-                progress_bar.progress(0.95, text="Stage 2 — Expert ranking")
-                status_box.caption(message)
-            elif phase == "done":
-                progress_bar.progress(1.0, text="✅ Complete!")
-                status_box.caption(message)
+        # Create a unique temp folder for this specific run to avoid collisions
+        run_id = str(uuid.uuid4())
+        temp_dir = Path("temp_uploads") / run_id
+        temp_dir.mkdir(parents=True, exist_ok=True)
 
         try:
+            if jd_file:
+                temp_jd = temp_dir / jd_file.name
+                temp_jd.write_bytes(jd_file.getbuffer())
+                jd_text = extract_text(temp_jd)
+
+            # Handle resumes
+            if resume_files:
+                for f in resume_files:
+                    p = temp_dir / f.name
+                    p.write_bytes(f.getbuffer())
+                    resume_paths.append(p)
+            elif resume_folder:
+                from utils.file_handling import scan_resume_folder
+                resume_paths = scan_resume_folder(resume_folder)
+            else:
+                st.warning("Upload resumes or provide a folder.")
+                return
+
+            if not resume_paths:
+                st.warning("No valid resumes found.")
+                return
+
+            # ---------- LIVE PROGRESS ----------
+            progress_bar = st.progress(0, text="Initializing...")
+            status_box = st.empty()
+
+            def on_progress(phase, current, total, message):
+                if phase == "stage1":
+                    pct = current / total if total > 0 else 0
+                    progress_bar.progress(pct, text=f"Stage 1 — {current}/{total} resumes")
+                    status_box.caption(message)
+                elif phase == "stage2":
+                    progress_bar.progress(0.95, text="Stage 2 — Expert ranking")
+                    status_box.caption(message)
+                elif phase == "done":
+                    progress_bar.progress(1.0, text="✅ Complete!")
+                    status_box.caption(message)
+
             result = await process_analysis(
                 analysis_name, jd_text, resume_paths,
                 user["user_id"], model=model_choice,
                 progress_callback=on_progress
             )
-        except Exception as e:
-            progress_bar.empty()
-            status_box.empty()
-            st.error(f"Analysis failed: {e}")
-            return
 
-        if result.get("status") == "cached":
-            progress_bar.empty()
-            st.warning("⚠ Identical analysis already exists — showing cached results.")
+            if result.get("status") == "cached":
+                progress_bar.empty()
+                st.warning("⚠ Identical analysis already exists — showing cached results.")
+                st.session_state.selected_analysis = result["analysis_id"]
+                st.rerun()
+
+            st.balloons()
             st.session_state.selected_analysis = result["analysis_id"]
             st.rerun()
 
-        st.balloons()
-        st.session_state.selected_analysis = result["analysis_id"]
-        st.rerun()
+        except Exception as e:
+            st.error(f"Analysis failed: {e}")
+        finally:
+            # CLEANUP: Delete the unique temp folder for this run
+            if temp_dir.exists():
+                shutil.rmtree(temp_dir)
 
 
 # ============================================================

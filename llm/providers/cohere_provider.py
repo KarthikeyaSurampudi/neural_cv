@@ -19,9 +19,14 @@ class CohereProvider(BaseLLMProvider):
         self.model = model.replace("cohere/", "")
 
     async def chat(self, prompt: str) -> Dict[str, Any]:
-        response = await self.client.chat(
-            model=self.model,
-            message=prompt,
-            response_format={"type": "json_object"},
-        )
-        return json.loads(response.text)
+        try:
+            response = await self.client.chat(
+                model=self.model,
+                message=prompt,
+                response_format={"type": "json_object"},
+            )
+            if not response.text:
+                return {}
+            return json.loads(response.text)
+        except Exception as e:
+            raise RuntimeError(f"Cohere call failed: {e}")

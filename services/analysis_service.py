@@ -65,85 +65,92 @@ async def process_analysis(
     # ---------------- STAGE 1 ----------------
     async def process_one(path: Path):
         async with semaphore:
-            from utils.hash_utils import hash_file
-            
-            resume_hash = hash_file(path)
-
-            from database.repositories.candidate_repo import get_cached_candidate_data
-            cached_data = await get_cached_candidate_data(resume_hash, jd_hash)
-
-            if cached_data:
-                c = cached_data["candidate"]
-                sb = cached_data["breakdown"]
+            try:
+                from utils.hash_utils import hash_file
                 
-                candidate_id = await add_candidate(
-                    analysis_id=analysis_id,
-                    raw_text=c.raw_text,
-                    structured_data=c.structured_json,
-                    summary=c.summary,
-                    skills_text=c.skills_text,
-                    experience_text=c.experience_text,
-                    was_cached=True
-                )
+                resume_hash = hash_file(path)
 
-                if sb:
-                    await update_candidate_scores(
-                        candidate_id=candidate_id,
-                        scores={
-                            "skill_match": sb.skill_match,
-                            "exp_match": sb.exp_match,
-                            "education_match": sb.education_match,
-                            "overall_score": sb.overall_score,
-                        }
+                from database.repositories.candidate_repo import get_cached_candidate_data
+                cached_data = await get_cached_candidate_data(resume_hash, jd_hash)
+
+                if cached_data:
+                    c = cached_data["candidate"]
+                    sb = cached_data["breakdown"]
+                    
+                    candidate_id = await add_candidate(
+                        analysis_id=analysis_id,
+                        raw_text=c.raw_text,
+                        structured_data=c.structured_json,
+                        summary=c.summary,
+                        skills_text=c.skills_text,
+                        experience_text=c.experience_text,
+                        was_cached=True
                     )
 
-                processed["count"] += 1
-                processed["cached"] += 1
+                    if sb:
+                        await update_candidate_scores(
+                            candidate_id=candidate_id,
+                            scores={
+                                "skill_match": sb.skill_match,
+                                "exp_match": sb.exp_match,
+                                "education_match": sb.education_match,
+                                "overall_score": sb.overall_score,
+                            }
+                        )
+
+                    processed["count"] += 1
+                    processed["cached"] += 1
+                    if progress_callback:
+                        progress_callback("stage1", processed["count"], total,
+                                          f"⚡ Cache hit: {path.name}")
+                    return
+
+                # CACHE MISS: Call LLM
                 if progress_callback:
                     progress_callback("stage1", processed["count"], total,
-                                      f"⚡ Cache hit: {path.name}")
-                return
+                                      f"🤖 LLM call: {path.name}")
 
-            # CACHE MISS: Call LLM
-            if progress_callback:
-                progress_callback("stage1", processed["count"], total,
-                                  f"🤖 LLM call: {path.name}")
+                resume_data = await parse_and_score_resume(
+                    path=path,
+                    jd_text=jd_text,
+                    model=model
+                )
 
-            resume_data = await parse_and_score_resume(
-                path=path,
-                jd_text=jd_text,
-                model=model
-            )
+                struct_data = resume_data.model_dump()
+                struct_data["resume_hash"] = resume_hash
+                struct_data["filename"] = path.name
 
-            struct_data = resume_data.model_dump()
-            struct_data["resume_hash"] = resume_hash
-            struct_data["filename"] = path.name
+                candidate_id = await add_candidate(
+                    analysis_id=analysis_id,
+                    raw_text=resume_data.raw_text,
+                    structured_data=struct_data,
+                    summary=resume_data.summary,
+                    skills_text=resume_data.skills_text,
+                    experience_text=resume_data.experience_text,
+                    was_cached=False
+                )
 
-            candidate_id = await add_candidate(
-                analysis_id=analysis_id,
-                raw_text=resume_data.raw_text,
-                structured_data=struct_data,
-                summary=resume_data.summary,
-                skills_text=resume_data.skills_text,
-                experience_text=resume_data.experience_text,
-                was_cached=False
-            )
+                await update_candidate_scores(
+                    candidate_id=candidate_id,
+                    scores={
+                        "skill_match": resume_data.skill_match,
+                        "exp_match": resume_data.exp_match,
+                        "education_match": resume_data.education_match,
+                        "overall_score": resume_data.overall_score,
+                    }
+                )
 
-            await update_candidate_scores(
-                candidate_id=candidate_id,
-                scores={
-                    "skill_match": resume_data.skill_match,
-                    "exp_match": resume_data.exp_match,
-                    "education_match": resume_data.education_match,
-                    "overall_score": resume_data.overall_score,
-                }
-            )
-
-            processed["count"] += 1
-            processed["llm"] += 1
-            if progress_callback:
-                progress_callback("stage1", processed["count"], total,
-                                  f"✅ Done: {path.name}")
+                processed["count"] += 1
+                processed["llm"] += 1
+                if progress_callback:
+                    progress_callback("stage1", processed["count"], total,
+                                      f"✅ Done: {path.name}")
+            except Exception as e:
+                logger.error(f"Error processing {path.name}: {e}")
+                processed["count"] += 1
+                if progress_callback:
+                    progress_callback("stage1", processed["count"], total,
+                                      f"❌ Error: {path.name}")
 
     await asyncio.gather(*(process_one(p) for p in resume_paths))
 

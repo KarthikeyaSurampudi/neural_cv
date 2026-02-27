@@ -21,9 +21,16 @@ class OpenRouterProvider(BaseLLMProvider):
         self.model = model
 
     async def chat(self, prompt: str) -> Dict[str, Any]:
-        response = await self.client.chat.completions.create(
-            model=self.model,
-            messages=[{"role": "user", "content": prompt}],
-            response_format={"type": "json_object"},
-        )
-        return json.loads(response.choices[0].message.content)
+        try:
+            response = await self.client.chat.completions.create(
+                model=self.model,
+                messages=[{"role": "user", "content": prompt}],
+                response_format={"type": "json_object"},
+            )
+            content = response.choices[0].message.content
+            if not content:
+                return {}
+            return json.loads(content)
+        except Exception as e:
+            # Re-raise as a generic error that the service can catch
+            raise RuntimeError(f"OpenRouter call failed: {e}")

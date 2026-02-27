@@ -362,3 +362,73 @@ MATCHING CRITERIA:
 - overall_score (0.0 - 1.0...
 RESPONSE:
 {'$defs': {'EducationItem': {'properties': {'degree': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Degree'}, 'institution': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Institution'}, 'year': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Year'}}, 'title': 'EducationItem', 'type': 'object'}, 'ExperienceItem': {'properties': {'role': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Role'}, 'years': {'anyOf': [{'type': 'number'}, {'type': 'null'}], 'default': 0.0, 'title': 'Years'}, 'company': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Company'}}, 'title': 'ExperienceItem', 'type': 'object'}}, 'properties': {'name': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': 'Unknown', 'title': 'Name'}, 'email': {'anyOf': [{'type': 'string'}, {'type': 'null'}], 'default': None, 'title': 'Email'}, 'phone': {'anyOf': [{'type': 'string'
+
+==================================================
+FILE: Sai_Krishna_Resume.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'name': 'Allam Sai Krishna', 'email': 'saikrishna33388@gmail.com', 'phone': '7337298330', 'skills': ['SQL', 'Python', 'Power BI', 'Data Analysis', 'Dashboard Creation', 'Excel', 'Control-M', 'Data Visualization', 'Streamlit', 'langchain Library', 'GooglePalm', 'NLP', 'Machine Learning', 'PySpark', 'Feature Engineering', 'Logistic Regression', 'Decision Trees', 'Random Forest', 'Hyperparameter Tuning', 'Flask', 'MySQL', 'MongoDB', 'Presentation', 'Analytical Thinking', 'Problem solving', 'Storyboarding'], 'experience': [{'role': 'Senior Analyst', 'years': 1.6, 'company': 'Capgemini Technology Services India Limited'}, {'role': 'Data Analyst', 'years': 0.5, 'company': 'Moody’s Analytics'}], 'education': [{'degree': 'Bachelor of Technology', 'institution': 'Presidency University, Bengaluru', 'year': '2022'}], 'total_experience': 2.1, 'relevant_experience': 2.1, 'summary': 'Dynamic and adaptable Software Engineer with a Bachelor’s degree in Computer Engineering specializing in Data Scienc
+
+==================================================
+FILE: Saksham_Resume.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'name': 'Saksham Chaurasia', 'email': 'imsaksham.c@gmail.com', 'phone': None, 'skills': ['Computer Vision', 'Generative AI', 'GPT-4', 'LLMs', 'RAGs', 'Diffusion Models', 'GANs', 'Chatbot', 'Langchain', 'VectorDB', 'TensorFlow', 'PyTorch', 'Keras', 'Hugging Face', 'WandB', 'Python', 'C++', 'AWS (EC2, S3, ECS, Kinesis)', 'NVIDIA Jetson', 'Docker', 'Git', 'GCP'], 'experience': [{'role': 'Founding AI Engineer', 'years': 2.0, 'company': 'CamerEye Inc'}, {'role': 'Computer Vision Engineer', 'years': 0.5, 'company': 'Tech Mahindra'}, {'role': 'Machine Learning Engineer', 'years': 2.0, 'company': 'Signy Advanced Technology'}, {'role': 'AI Researcher', 'years': 0.33, 'company': 'Shantou University'}], 'education': [], 'total_experience': 4.83, 'relevant_experience': 4.83, 'summary': 'Versatile, innovative and results-oriented AI Engineer with over 6 years of experience driving innovation in Computer Vision, Generative AI, and Applied Data Science. Proven ability to architect and deploy end-to-
+
+==================================================
+FILE: Sanad_Resume_MS.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'name': 'Mohammad Sanad Zaki Rizvi', 'email': 'mohdsanadzakirizvi@gmail.com', 'phone': '+91-8050970702', 'skills': ['Speech and Language Processing', 'NLP', 'AI', 'LLMs', 'RAG', 'CoT', 'Contrastive decoding', 'Entity-Aware Speech Translation', 'Cross-lingual video access', 'Neural speech translation', 'Code-Mixed Text Generation', 'TensorFlow Lite', 'Deep Learning', 'Transformers', 'BERT', 'GPT-2', 'TensorFlowJS', 'GLTR', 'Grover', 'CoreML', 'Julia', 'ElasticSearch', 'Kibana', 'Google Apps Script'], 'experience': [{'role': 'Graduate Student Researcher', 'years': 1.25, 'company': 'The University of Edinburgh'}, {'role': 'Research Engineer (Consultant)', 'years': 1.0, 'company': 'Google Research India'}, {'role': 'NLP Research Engineer (Consultant)', 'years': 1.25, 'company': 'Microsoft Research India'}, {'role': 'Data Scientist', 'years': 1.25, 'company': 'Analytics Vidhya'}, {'role': 'Research Assistant', 'years': 0.5, 'company': 'University of Southern California - Institute for Crea
+
+==================================================
+FILE: sanchit_resume_cv_02_03_2025.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'name': 'SanchitAggarwal', 'email': 'sanchitagarwal108@gmail.com', 'phone': '(91)9581417330', 'skills': ['Machine Learning', 'Computer Vision', 'NLP', 'Data Science', 'IoT', 'AI', 'SaaS', 'Predictive Analytics', 'Crowdsourcing', 'Image Annotation', 'Workflow Management', 'System Engineering', 'Product Research and Development', 'Computer Vision', 'Assistive Technology'], 'experience': [{'role': 'CO-FOUNDER', 'years': 1.0, 'company': 'Thynaa Healthy Naturally Private Limited'}, {'role': 'SIIP FELLOW', 'years': 1.5, 'company': 'Social Innovation Immersion Program, BIRAC, VentureCenter'}, {'role': 'XPERT', 'years': 4.5, 'company': 'upGrad'}, {'role': 'FOUNDER IN RESIDENCE', 'years': 0.5, 'company': 'EntrepreneurFirst, UK'}, {'role': 'DATA SCIENCE CONSULTANT', 'years': 0.3, 'company': 'KnowDis DataScience'}, {'role': 'MACHINE LEARNING LEAD', 'years': 1.7, 'company': 'Squadrun Solution Pvt. Ltd.'}, {'role': 'DATA SCIENTIST', 'years': 0.7, 'company': 'Proof-of-Performance DataServices Pvt. 
+
+==================================================
+FILE: Palash_Saha_Resume-7.pdf
+PROMPT:
+
+You are an expert HR Data Scientist. Your goal is to extract information from a resume and match it against a Job Description.
+
+MATCHING CRITERIA:
+- skill_match (0.0 - 1.0): How well do the candidate's technical and soft skills align with the JD requirements?
+- exp_match (0.0 - 1.0): Does the candidate have the required years of experience and relevant industry/role depth?
+- education_match (0.0 - 1.0): Does the candidate meet the degree or certification requirements?
+- overall_score (0.0 - 1.0...
+RESPONSE:
+{'name': 'Palash Saha', 'email': 'palashsaha651@gmail.com', 'phone': '9830787268', 'skills': ['Python', 'Django', 'Flask', 'MySQL', 'Oracle', 'Vector DB', 'Graph DB', 'AWS', 'Microsoft Azure', 'Microsoft Graph API', 'Azure Functions', 'Docker', 'Windows Server', 'Linux Server', 'Gen AI', 'LLMs', 'LangGraph', 'LangChain', 'NLP', 'Machine Learning', 'VS Code', 'Copilot Studio', 'Power Automate', 'Neo4j', 'RAG', 'Chatbot Development', 'Automation'], 'experience': [{'role': 'Senior Analyst', 'years': 1.5, 'company': 'Capgemini Technology Services India Limited'}, {'role': 'Lecturer', 'years': 0.75, 'company': 'Techno Main Salt Lake'}], 'education': [{'degree': 'Master of Computer Applications', 'institution': 'Techno Main Salt Lake', 'year': '2021'}, {'degree': 'Bachelor of Science, Mathematics (H)', 'institution': 'Calcutta University', 'year': '2018'}], 'total_experience': 2.25, 'relevant_experience': 1.5, 'summary': 'Experienced professional specializing in AI-powered chatbot developmen

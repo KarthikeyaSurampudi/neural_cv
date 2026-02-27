@@ -172,3 +172,37 @@ asyncio.exceptions.CancelledError
 2026-02-26 14:43:00,937 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
 2026-02-26 14:43:01,068 - services.ranking_service - INFO - Stage 2 ranking 4 candidates for analysis 4dfa3c0c5b7847b29f1fa0dddad0f67c
 2026-02-26 14:43:19,981 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/chat "HTTP/1.1 200 OK"
+2026-02-27 12:30:59,582 - services.resume_service - INFO - Processing candidate: Sneha Mohite Resume.pdf
+2026-02-27 12:31:05,073 - services.resume_service - INFO - Processing candidate: snehashukla_resume (5).pdf
+2026-02-27 12:31:05,956 - services.resume_service - INFO - Processing candidate: Sourav_Mudi_Resume.pdf
+2026-02-27 12:31:07,963 - services.resume_service - INFO - Processing candidate: Sowjanya_Swathi_resume_June2025.pdf
+2026-02-27 12:31:11,623 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-27 12:31:11,964 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-27 12:31:12,321 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-27 12:31:12,339 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-27 12:38:06,956 - services.resume_service - INFO - Processing candidate: Sneha Mohite Resume.pdf
+2026-02-27 12:38:08,578 - services.resume_service - INFO - Processing candidate: Sivanesh - AIML Engineer.pdf
+2026-02-27 12:38:10,572 - services.resume_service - INFO - Processing candidate: ShreyaJ_Resume.pdf
+2026-02-27 12:38:13,025 - services.resume_service - INFO - Processing candidate: Shubham resume.pdf
+2026-02-27 12:38:16,912 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-27 12:38:17,039 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-27 12:38:17,068 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-27 12:38:17,164 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-27 12:40:08,580 - services.resume_service - INFO - Processing candidate: Sai_Krishna_Resume.pdf
+2026-02-27 12:40:09,656 - services.resume_service - INFO - Processing candidate: Sanad_Resume_MS.pdf
+2026-02-27 12:40:10,338 - services.resume_service - INFO - Processing candidate: Saksham_Resume.pdf
+2026-02-27 12:40:11,603 - services.resume_service - INFO - Processing candidate: sanchit_resume_cv_02_03_2025.pdf
+2026-02-27 12:40:13,073 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-27 12:40:13,524 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-27 12:40:13,578 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-27 12:40:13,669 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-27 12:40:48,782 - services.ranking_service - INFO - Stage 2 ranking 2 candidates for analysis 9e9db27ccfdb4b3b8c5bcab8e03042b6
+2026-02-27 12:40:51,737 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-27 12:47:40,445 - services.resume_service - INFO - Processing candidate: Nagaraju - ML AI Engineer.pdf
+2026-02-27 12:47:41,475 - services.resume_service - INFO - Processing candidate: More_Pravalika_Patil_resume.pdf
+2026-02-27 12:47:42,756 - services.resume_service - INFO - Processing candidate: Palash_Saha_Resume-7.pdf
+2026-02-27 12:47:44,000 - services.resume_service - INFO - Processing candidate: NaveenSai_Resume.pdf
+2026-02-27 12:47:46,303 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-27 12:47:47,441 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-27 12:47:47,465 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-27 12:47:47,637 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
