@@ -8,6 +8,7 @@
 /sessions
 pyvenv.cfg
 pyvenv
+/logs
 
 # Environment variables
 .env
