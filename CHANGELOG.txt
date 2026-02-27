@@ -1,0 +1,349 @@
+================================================================================
+                 NeuralCV — COMPLETE CHANGE LOG & FUNCTION REFERENCE
+================================================================================
+
+
+################################################################################
+  PHASE 1 — INITIAL FEATURE ADDITIONS (Before Pair Programming Session)
+################################################################################
+
+
+1. JWT SESSION HANDLING & AUTHENTICATION
+================================================================================
+
+  FILES: auth/jwt_handler.py, auth/middleware.py, auth/__init__.py
+
+  - Implemented JWT-based authentication with access + refresh tokens
+  - Access token expires in 30 minutes, refresh token in 7 days
+  - Functions added:
+      create_tokens(user_id, username, is_admin)
+      verify_access_token(token)
+      verify_refresh_token(token)
+      is_token_expired(token)
+  - middleware.py handles login/logout and session_state management
+  - Login form added to streamlit_app.py with sidebar navigation guard
+
+
+2. ADMIN USER MANAGEMENT
+================================================================================
+
+  FILES: services/user_service.py, database/repositories/user_repo.py,
+         app/streamlit_app.py (Admin Panel)
+
+  - Admin can create new users (username, password, admin toggle)
+  - Admin can delete users from the database
+  - Admin can reset a user's password
+  - Admin Panel page visible only to admin users in the sidebar
+
+
+3. CHANGE PASSWORD FORM
+================================================================================
+
+  FILES: app/streamlit_app.py, services/user_service.py
+
+  - Both users and admins can change their own passwords
+  - Form with Current Password, New Password, Confirm New Password
+  - Uses password complexity rules (see #4)
+
+4. PASSWORD COMPLEXITY RULES
+================================================================================
+
+  FILE: core/security.py
+
+  - validate_password() enforces:
+      • Minimum 8 characters
+      • At least 1 uppercase letter
+      • At least 1 digit
+  - Applied to: Change Password form, Admin user creation
+  - Prevents simple/weak passwords
+
+
+5. OPTIMIZED SCORING ENGINE LLM PROMPT
+================================================================================
+
+  FILE: services/resume_service.py
+
+  - Rewrote the LLM prompt for resume parsing & scoring
+  - Reduced input tokens while preserving accuracy
+  - Persona: "Expert HR Data Scientist"
+  - Explicit scoring criteria (0.0 to 1.0 scale)
+  - Structured JSON output format to minimize parsing errors
+
+
+6. UI IMPROVEMENTS (Initial)
+================================================================================
+
+  FILE: app/streamlit_app.py
+
+  - Wide layout with st.set_page_config(layout="wide")
+  - Sidebar navigation with role-based pages
+  - Styled login page centered with columns
+  - Analysis results with dataframe tables
+  - Expander-based candidate profiles
+
+
+7. PERSISTENT LOGIN (Initial Attempt)
+================================================================================
+
+  FILE: app/streamlit_app.py, auth/middleware.py
+
+  - First approach used extra_streamlit_components CookieManager
+  - Stored JWT tokens in browser cookies
+  - Had issues with StreamlitDuplicateElementKey and CachedWidgetWarning
+  - Later replaced in Phase 2 with file-based sessions
+
+
+8. DATABASE VIEWER
+================================================================================
+
+  FILE: db_viewer.py
+
+  - Standalone Streamlit app for monitoring the database
+  - Dropdown to select any table (user, analysis, candidate, etc.)
+  - Auto-refreshes every 5 seconds using streamlit-autorefresh
+  - Shows row count, modification time, full table data
+  - Run with: streamlit run db_viewer.py
+  - Later integrated into main app as admin page (Phase 2)
+
+
+9. RESUME PREPROCESSING
+================================================================================
+
+  FILE: processing/resume_preprocessor.py
+
+  - preprocess_text(raw_text) cleans resume text before LLM input
+  - Removes extra whitespace, special characters, noise
+  - Reduces input token count sent to the LLM
+  - Called in resume_service.py before building the scoring prompt
+
+
+
+################################################################################
+  PHASE 2 — PAIR PROGRAMMING SESSION CHANGES
+################################################################################
+
+
+10. PERSISTENT SESSION — FILE-BASED (Replaced Cookies)
+================================================================================
+
+  PROBLEM:  CookieManager from extra_streamlit_components was buggy —
+            caused duplicate key errors, caching warnings, and sessions
+            were lost on every page refresh.
+
+  SOLUTION: Replaced with file-based sessions + st.query_params.
+
+  NEW FILE: auth/session_store.py
+  --------------------------------------------------------------------------
+    save_session(user, access, refresh) -> session_id
+        - Writes JWT + user data to sessions/{uuid}.json
+        - Returns session_id for URL storage
+
+    load_session(session_id) -> dict | None
+        - Reads session file, returns data or None
+
+    delete_session(session_id)
+        - Deletes session file on logout
+
+  HOW IT WORKS:
+    LOGIN   → save_session() → st.query_params["sid"] = session_id
+    REFRESH → read st.query_params["sid"] → load_session() → restore state
+    LOGOUT  → delete_session() → st.query_params.clear()
+
+  MODIFIED: auth/middleware.py
+    - Simplified: no cookie logic, returns tokens from login_user()
+    - logout_user() only clears session_state
+
+  MODIFIED: app/streamlit_app.py
+    - Removed extra_streamlit_components dependency
+    - Added top-level session recovery block
+    - Login/logout now use file-based session store
+
+
+11. RESUME-LEVEL CACHING
+================================================================================
+
+  PROBLEM:  Re-uploading the same resume for the same JD wasted LLM tokens.
+
+  SOLUTION: SHA-256 hash each resume, check DB before calling LLM.
+
+  NEW: database/repositories/candidate_repo.py
+    get_cached_candidate_data(resume_hash, jd_hash) -> dict | None
+
+  NEW: utils/hash_utils.py
+    hash_file(path) -> str
+    hash_text(text) -> str
+    hash_resume_set(paths) -> str
+
+  MODIFIED: services/analysis_service.py -> process_one()
+    - hash_file(path) before each LLM call
+    - If cached: clone results (was_cached=True), skip LLM
+    - If new: call LLM, store with resume_hash for future reuse
+
+
+12. ANALYSIS-LEVEL CACHING
+================================================================================
+
+  PROBLEM:  Same JD + same resume set created duplicate analyses.
+
+  SOLUTION: resume_set_hash on the Analysis model.
+
+  MODIFIED: database/models.py
+    - Analysis.resume_set_hash (String)
+    - Candidate.was_cached (Boolean)
+
+  MODIFIED: database/repositories/analysis_repo.py
+    - find_existing_analysis() checks jd_hash + resume_set_hash
+    - create_analysis() stores resume_set_hash
+
+
+13. LLM PARSING IMPROVEMENTS
+================================================================================
+
+  MODIFIED: services/resume_service.py
+    - flatten_result() normalizes: "85%" → 0.85, nested dicts → floats
+    - Handles markdown code blocks in LLM response
+    - Diagnostic dump to logs/debug_llm.txt
+    - Fallback placeholder if parsing fails
+
+  MODIFIED: domain/resume_models.py
+    - Field aliases: skills_match → skill_match
+    - Validators to normalize scores to 0.0–1.0
+
+
+14. DEBUG DASHBOARD (Standalone → Integrated)
+================================================================================
+
+  ORIGINAL: debug_dashboard.py (standalone Streamlit app)
+    - LLM calls vs Cache hits metrics
+    - Per-analysis breakdown table
+    - Raw LLM log viewer
+
+  INTEGRATED: app/streamlit_app.py → show_debug_dashboard()
+    - Now a page inside the main app, visible to admins only
+    - Same functionality, no separate process needed
+
+
+15. DB VIEWER (Standalone → Integrated)
+================================================================================
+
+  ORIGINAL: db_viewer.py (standalone Streamlit app)
+
+  INTEGRATED: app/streamlit_app.py → show_db_viewer()
+    - Admin-only page, browse any database table
+    - Dropdown selector, row count display
+
+
+16. DATABASE MIGRATION UTILITY
+================================================================================
+
+  NEW FILE: migrate_db.py
+    - migrate() adds missing columns to existing SQLite tables
+    - Adds: resume_set_hash, resume_hash, filename, was_cached
+    - Idempotent — safe to run multiple times
+    - Run with: python migrate_db.py
+
+
+17. 80% SCORE THRESHOLD
+================================================================================
+
+  PROBLEM:  Low-scoring candidates cluttered results and wasted LLM tokens.
+
+  MODIFIED: services/analysis_service.py
+    - STAGE2_THRESHOLD = 0.80
+    - Only candidates ≥80% enter Stage 2 ranking
+
+  MODIFIED: app/streamlit_app.py → show_analysis_results()
+    - Hides candidates below 80% from all display sections
+    - Shows count of filtered candidates
+
+
+18. UI REDESIGN — DASHBOARD
+================================================================================
+
+  MODIFIED: app/streamlit_app.py → show_dashboard()
+    - Welcome header with username
+    - Quick stats: Total / Completed / Pending / Candidates Processed
+    - Bordered cards per analysis with status badges (🟢🟡🔵🔴)
+    - Full-width View/Delete buttons with icons
+
+
+19. UI REDESIGN — NEW ANALYSIS PAGE
+================================================================================
+
+  MODIFIED: app/streamlit_app.py → show_new_analysis()
+    - Tabbed JD input (Upload / Paste)
+    - Tabbed Resume input (Upload Files / Folder Path)
+    - Primary-styled Run button
+    - LIVE PROGRESS BAR:
+        Stage 1: "3/10 resumes" + per-file status (🤖 LLM / ⚡ Cache)
+        Stage 2: "Expert ranking..."
+        Done: Summary + 🎈 balloons
+
+  MODIFIED: services/analysis_service.py → process_analysis()
+    - NEW PARAM: progress_callback(phase, current, total, message)
+    - Called at each stage for real-time UI updates
+
+
+20. UI REDESIGN — VIEW RESULTS PAGE
+================================================================================
+
+  MODIFIED: app/streamlit_app.py → show_analysis_results()
+    - Stats bar: Total Processed / Qualified / Below Threshold
+    - Top Ranked: bordered cards with rank, name, score, justification
+    - Sortable table: all qualified candidates
+    - Expandable profiles: progress bars + LLM analysis side by side
+
+
+21. STAGE 2 DETAILED JUSTIFICATIONS
+================================================================================
+
+  MODIFIED: services/ranking_service.py → _build_ranking_prompt()
+    - Changed from "One concise sentence" → "3-4 detailed sentences"
+    - Now covers:
+        a) Key matching skills and technologies
+        b) Relevant experience highlights and years
+        c) Any gaps or missing JD requirements
+        d) Overall fit assessment (Strong / Good / Moderate Fit)
+        
+
+22. AUTOMATIC TEMP FILE CLEANUP
+================================================================================
+
+  PROBLEM:  `temp_uploads/` folder accumulated files indefinitely after
+            each analysis run, causing disk bloat.
+
+  MODIFIED: app/streamlit_app.py
+  --------------------------------------------------------------------------
+  - Implemented unique subdirectories per analysis run using `uuid`
+  - Added `try...finally` block to ensure `shutil.rmtree` deletes the
+    temporary files immediately after processing finishes or fails
+  - Prevents file name collisions when multiple users run analyses
+
+23. ROBUST ERROR HANDLING & FAULT TOLERANCE
+================================================================================
+
+  PROBLEM:  If an LLM API call returned an empty response or crashed, the 
+            entire analysis run would fail with "Expecting value: line 1..."
+
+  SOLUTION: Multi-layer error catching and graceful fallbacks.
+
+  MODIFIED: llm/providers/ (OpenRouter & Cohere)
+  --------------------------------------------------------------------------
+  - Added checks for empty response content
+  - Wrapped JSON parsing in try-except blocks
+  - Returns empty dict {} instead of crashing on malformed LLM output
+
+  MODIFIED: services/resume_service.py
+  --------------------------------------------------------------------------
+  - Wrapped provider.chat() in try-except
+  - Captures API timeouts/network errors without bubbling up to UI
+  - Returns placeholder [PARSING FAILED] data to keep the loop running
+
+  MODIFIED: services/analysis_service.py
+  --------------------------------------------------------------------------
+  - Wrapped process_one() in a per-candidate try-except block
+  - A single "bad" resume or API glitch no longer kills the entire 
+    analysis of 50+ files.
+  - UI shows ❌ Error: filename for failed items while continuing others.
+
+================================================================================
