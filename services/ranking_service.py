@@ -108,8 +108,15 @@ Job Description:
 Candidates:
 {summaries}
 
-Return ONLY valid JSON in this exact format:
-{{"ranking": [{{"rank": 1, "name": "Full Name", "justification": "3-4 detailed sentences about why this candidate is ranked here, covering skills match, experience relevance, gaps, and overall fit."}}]}}"""
+Return ONLY valid JSON in this exact format. 
+Each justification MUST contain at least 100 words and follow the paragraph style of this example:
+{{"ranking": [
+  {{
+    "rank": 1, 
+    "name": "Full Name", 
+    "justification": "Candidate ranks #1 due to exceptional alignment in core technologies (e.g. LangChain, OpenAI) and 5 years of senior-level experience in the AI field. While they lack the specific cloud certifications mentioned, their 3 years of hands-on history with AWS SageMaker and direct contribution to Large Language Model scaling projects offsets this gap. They have demonstrated leadership in cross-functional teams and have a proven track record of delivering production-ready AI solutions. Overall, they represent a Strong Fit for the Lead AI Engineer position and outperformed other candidates in terms of technical depth and leadership potential."
+  }}
+]}}"""
 
 def calculate_stage2_count(total_candidates: int) -> int:
     """

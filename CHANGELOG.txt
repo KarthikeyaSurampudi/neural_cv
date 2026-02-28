@@ -304,7 +304,8 @@
         b) Relevant experience highlights and years
         c) Any gaps or missing JD requirements
         d) Overall fit assessment (Strong / Good / Moderate Fit)
-        
+    - Added a 100-word minimum and a robust 5-bullets style example to the 
+      ranking prompt to force deeper analysis and longer justifications.
 
 22. AUTOMATIC TEMP FILE CLEANUP
 ================================================================================
@@ -363,5 +364,15 @@
       • Source Filename
   - Allows users to export analysis data for offline processing 
     or spreadsheet tools.
+
+================================================================================
+27. INITIAL DB ADMIN SETUP UTILITY
+================================================================================
+
+  NEW FILE: utils/initial_db_admin.py
+  --------------------------------------------------------------------------
+  - Standalone script to initialize the database and create the primary
+    admin user (admin/Admin123).
+  - Ensures the system is ready for first launch with proper credentials.
 
 ================================================================================
