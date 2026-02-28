@@ -243,11 +243,31 @@ async def show_analysis_results():
     qualified = [r for r in all_rows if r["score"] >= THRESHOLD]
     hidden = len(all_rows) - len(qualified)
 
-    # --- Quick Stats ---
-    c1, c2, c3 = st.columns(3)
+    c1, c2, c3 = st.columns([1, 1, 1])
     c1.metric("Total Processed", len(all_rows))
     c2.metric("Qualified (≥80%)", len(qualified))
-    c3.metric("Below Threshold", hidden)
+    
+    export_df = pd.DataFrame([{
+        "Name": r["name"],
+        "Skill Match (%)": f"{r['skill']*100:.1f}",
+        "Experience Match (%)": f"{r['exp']*100:.1f}",
+        "Education Match (%)": f"{r['edu']*100:.1f}",
+        "Overall Score (%)": f"{r['score']:.1f}",
+        "Rank": r["rank"] if r["rank"] else "N/A",
+        "Justification": r["justification"] if r["justification"] else "Stage 2 not performed",
+        "File": r["filename"]
+    } for r in sorted(all_rows, key=lambda x: x["score"], reverse=True)])
+    
+    csv = export_df.to_csv(index=False).encode('utf-8')
+    with c3:
+        st.write("")
+        st.download_button(
+            label="📥 Download Results (CSV)",
+            data=csv,
+            file_name=f"analysis_export_{analysis_id[:8]}.csv",
+            mime="text/csv",
+            use_container_width=True
+        )
 
     if not qualified:
         st.warning("No candidates scored above 80%.")

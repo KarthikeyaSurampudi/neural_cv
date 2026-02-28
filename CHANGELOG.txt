@@ -345,5 +345,23 @@
   - A single "bad" resume or API glitch no longer kills the entire 
     analysis of 50+ files.
   - UI shows ❌ Error: filename for failed items while continuing others.
+        
+        
+26. CSV EXPORT FUNCTIONALITY
+================================================================================
+
+  NEW FEATURE:  Added "📥 Download Results (CSV)" button on the results page.
+
+  MODIFIED: app/streamlit_app.py → show_analysis_results()
+  --------------------------------------------------------------------------
+  - Generates a formatted CSV on the fly containing:
+      • Candidate Name
+      • Skill/Experience/Education Match percentages
+      • Overall Score
+      • Stage 2 Rank (if applicable)
+      • Detailed Justification
+      • Source Filename
+  - Allows users to export analysis data for offline processing 
+    or spreadsheet tools.
 
 ================================================================================
