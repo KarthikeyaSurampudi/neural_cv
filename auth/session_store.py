@@ -8,11 +8,20 @@ SESSION_DIR = Path("sessions")
 SESSION_DIR.mkdir(exist_ok=True)
 
 
+def _json_default(obj):
+    import uuid
+    import datetime
+    if isinstance(obj, uuid.UUID):
+        return str(obj)
+    if isinstance(obj, (datetime.datetime, datetime.date)):
+        return obj.isoformat()
+    raise TypeError(f"Type {type(obj)} not serializable")
+
 def save_session(user: dict, access: str, refresh: str) -> str:
     """Save session data to a file. Returns session_id."""
     session_id = uuid.uuid4().hex
     data = {"access": access, "refresh": refresh, "user": user}
-    (SESSION_DIR / f"{session_id}.json").write_text(json.dumps(data))
+    (SESSION_DIR / f"{session_id}.json").write_text(json.dumps(data, default=_json_default))
     return session_id
 
 

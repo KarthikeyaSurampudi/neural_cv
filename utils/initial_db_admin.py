@@ -5,8 +5,8 @@ from database.engine import init_db
 async def setup():
     await init_db()
     user_id, error = await create_user(
-        username="admin",
-        password="Admin123",
+        username="admin2",
+        password="Admin12345",
         is_admin=True
     )
     print(user_id, error)
