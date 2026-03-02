@@ -239,7 +239,7 @@ async def show_analysis_results():
         })
 
     # --- Threshold Filter ---
-    THRESHOLD = 80.0
+    THRESHOLD = 85.0
     qualified = [r for r in all_rows if r["score"] >= THRESHOLD]
     hidden = len(all_rows) - len(qualified)
 
