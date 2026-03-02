@@ -15,9 +15,6 @@ from services.analysis_service import (
 )
 from services.user_service import (
     change_password,
-    create_user,
-    list_users,
-    delete_user,
 )
 
 from core.config import config
@@ -115,11 +112,6 @@ async def show_login():
 def sidebar_navigation(user):
 
     pages = ["Dashboard", "New Analysis", "Change Password"]
-
-    if user["is_admin"]:
-        pages.append("Admin Panel")
-        pages.append("Debug Dashboard")
-        pages.append("DB Viewer")
 
     choice = st.sidebar.radio("Navigation", pages)
 
@@ -487,121 +479,7 @@ async def show_change_password(user):
                     st.error(error)
 
 
-# ============================================================
-# ADMIN PANEL
-# ============================================================
 
-async def show_admin_panel():
-
-    st.title("Admin Panel")
-
-    with st.expander("Create User"):
-        with st.form("create_user"):
-            username = st.text_input("Username")
-            password = st.text_input("Password", type="password")
-            is_admin = st.checkbox("Admin")
-            submitted = st.form_submit_button("Create")
-
-            if submitted:
-                user_id, error = await create_user(
-                    username, password, is_admin
-                )
-                if user_id:
-                    st.success("User created.")
-                else:
-                    st.error(error)
-
-    st.divider()
-
-    users = await list_users()
-
-    for u in users:
-        col1, col2, col3 = st.columns([3, 2, 1])
-        col1.write(u["username"])
-        col2.write("Admin" if u["is_admin"] else "User")
-
-        if col3.button("Delete", key=u["user_id"]):
-            await delete_user(u["user_id"])
-            st.rerun()
-
-
-# ============================================================
-# DEBUG DASHBOARD (Admin Only)
-# ============================================================
-
-async def show_debug_dashboard():
-    import sqlite3
-    import pandas as pd
-
-    st.title("🛠 Debug Dashboard")
-    st.caption("LLM calls vs Cache hits")
-
-    try:
-        conn = sqlite3.connect("neuralcv.db")
-
-        total = pd.read_sql("SELECT COUNT(*) as c FROM candidate", conn).iloc[0]['c']
-        llm = pd.read_sql("SELECT COUNT(*) as c FROM candidate WHERE was_cached = 0", conn).iloc[0]['c']
-        cached = pd.read_sql("SELECT COUNT(*) as c FROM candidate WHERE was_cached = 1", conn).iloc[0]['c']
-
-        c1, c2, c3 = st.columns(3)
-        c1.metric("Total Candidates", total)
-        c2.metric("LLM Calls", llm)
-        c3.metric("Cache Hits", cached)
-
-        st.divider()
-        st.subheader("📁 Per-Analysis Breakdown")
-        query = """
-        SELECT a.analysis_name,
-               COUNT(c.candidate_id) as total,
-               SUM(CASE WHEN c.was_cached=1 THEN 1 ELSE 0 END) as hits,
-               SUM(CASE WHEN c.was_cached=0 THEN 1 ELSE 0 END) as calls
-        FROM analysis a
-        LEFT JOIN candidate c ON a.analysis_id = c.analysis_id
-        GROUP BY a.analysis_id ORDER BY a.created_at DESC
-        """
-        st.dataframe(pd.read_sql(query, conn), use_container_width=True, hide_index=True)
-
-        st.divider()
-        st.subheader("📄 LLM Logs")
-        log_path = Path("logs/debug_llm.txt")
-        if log_path.exists():
-            st.text_area("Last 5000 chars", log_path.read_text(encoding="utf-8")[-5000:], height=300)
-        else:
-            st.info("No logs yet.")
-
-        conn.close()
-    except Exception as e:
-        st.error(f"DB error: {e}")
-
-
-# ============================================================
-# DB VIEWER (Admin Only)
-# ============================================================
-
-async def show_db_viewer():
-    import sqlite3
-    import pandas as pd
-
-    st.title("🗄 Database Viewer")
-
-    try:
-        conn = sqlite3.connect("neuralcv.db")
-        tables = [r[0] for r in conn.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()]
-        conn.close()
-
-        if not tables:
-            st.warning("No tables found.")
-            return
-
-        selected = st.selectbox("Select Table", tables)
-        conn = sqlite3.connect("neuralcv.db")
-        df = pd.read_sql(f"SELECT * FROM {selected}", conn)
-        conn.close()
-
-        st.dataframe(df, use_container_width=True, hide_index=True)
-        st.caption(f"{len(df)} rows")
-    except Exception as e:
-        st.error(f"DB error: {e}")
 
 
 # ============================================================
@@ -632,15 +510,6 @@ async def main():
 
     elif page == "Change Password":
         await show_change_password(user)
-
-    elif page == "Admin Panel" and user["is_admin"]:
-        await show_admin_panel()
-
-    elif page == "Debug Dashboard" and user["is_admin"]:
-        await show_debug_dashboard()
-
-    elif page == "DB Viewer" and user["is_admin"]:
-        await show_db_viewer()
 
 
 run_async(main())

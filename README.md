@@ -25,7 +25,7 @@ NeuralCV is an automated resume screening platform that uses Large Language Mode
 
 * **Front-end:** Streamlit (v1.30+)
 * **Models:** Cohere (Command series) or OpenRouter (GPT-4/Claude via completion)
-* **Data Layer:** SQLAlchemy (Async) with SQLite
+* **Data Layer:** SQLAlchemy (Async) with PostgreSQL
 * **Security:** JWT, Bcrypt password hashing
 * **Parsing:** PyPDF2, python-docx, pydantic (Validation)
 
@@ -45,7 +45,7 @@ Create a `.env` file in the root directory. Required variables:
 
 * `COHERE_API_KEY`: For primary parsing/scoring
 * `JWT_SECRET_KEY`: Used to sign persistent session tokens
-* `DATABASE_URL=sqlite+aiosqlite:///neuralcv.db`: Standard SQLite path
+* `DATABASE_URL=postgresql+asyncpg://resdb_chqu_user:yWppCmyXMl8LGJAaYbbzSh5RUYPQSGjW@dpg-d6amt9gboq4c73dgdr20-a.oregon-postgres.render.com/resdb_chqu`: PostgreSQL deployment path
 
 ### 3. Database Initialization
 

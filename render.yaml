@@ -5,13 +5,9 @@ services:
     plan: free
     buildCommand: pip install -r requirements.txt
     startCommand: streamlit run app/streamlit_app.py --server.port $PORT --server.address 0.0.0.0
-    disk:
-      name: sqlite-data
-      mountPath: /data
-      sizeGB: 1
     envVars:
       - key: DATABASE_URL
-        value: sqlite+aiosqlite:////data/neuralcv.db
+        value: postgresql+asyncpg://resdb_chqu_user:yWppCmyXMl8LGJAaYbbzSh5RUYPQSGjW@dpg-d6amt9gboq4c73dgdr20-a.oregon-postgres.render.com/resdb_chqu
       - key: JWT_SECRET_KEY
         generateValue: true
       - key: COHERE_API_KEY

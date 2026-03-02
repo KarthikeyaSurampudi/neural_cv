@@ -11,7 +11,7 @@ load_dotenv()
 
 class Settings(BaseSettings):
     # Database
-    database_url: str = "sqlite+aiosqlite:///neuralcv.db"
+    database_url: str = "postgresql+asyncpg://resdb_chqu_user:yWppCmyXMl8LGJAaYbbzSh5RUYPQSGjW@dpg-d6amt9gboq4c73dgdr20-a.oregon-postgres.render.com/resdb_chqu"
 
     available_models: list[str] = [
     "openai/gpt-4-turbo",
