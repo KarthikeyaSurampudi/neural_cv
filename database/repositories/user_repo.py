@@ -6,13 +6,13 @@ import uuid
 from typing import Optional, Dict, List
 
 from sqlalchemy import select, delete, update
-from database.engine import AsyncSessionLocal
+from database.engine import get_db_session
 from database.models import User
 
 
 async def create_user(username: str, password_hash: str, is_admin: bool) -> str:
     user_id = uuid.uuid4().hex
-    async with AsyncSessionLocal() as session:
+    async with get_db_session() as session:
         user = User(
             user_id=user_id,
             username=username,
@@ -27,7 +27,7 @@ async def create_user(username: str, password_hash: str, is_admin: bool) -> str:
 
 
 async def get_user_by_username(username: str) -> Optional[Dict]:
-    async with AsyncSessionLocal() as session:
+    async with get_db_session() as session:
         result = await session.execute(
             select(User).where(User.username == username)
         )
@@ -46,7 +46,7 @@ async def get_user_by_username(username: str) -> Optional[Dict]:
 
 
 async def get_user_by_id(user_id: str) -> Optional[Dict]:
-    async with AsyncSessionLocal() as session:
+    async with get_db_session() as session:
         result = await session.execute(
             select(User).where(User.user_id == user_id)
         )
@@ -65,7 +65,7 @@ async def get_user_by_id(user_id: str) -> Optional[Dict]:
 
 
 async def list_users() -> List[Dict]:
-    async with AsyncSessionLocal() as session:
+    async with get_db_session() as session:
         result = await session.execute(select(User))
         users = result.scalars().all()
         return [
@@ -80,7 +80,7 @@ async def list_users() -> List[Dict]:
 
 
 async def delete_user(user_id: str) -> bool:
-    async with AsyncSessionLocal() as session:
+    async with get_db_session() as session:
         await session.execute(
             delete(User).where(User.user_id == user_id)
         )
@@ -89,7 +89,7 @@ async def delete_user(user_id: str) -> bool:
 
 
 async def update_password(user_id: str, new_hash: str):
-    async with AsyncSessionLocal() as session:
+    async with get_db_session() as session:
         await session.execute(
             update(User)
             .where(User.user_id == user_id)

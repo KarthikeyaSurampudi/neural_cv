@@ -5,7 +5,7 @@
 import uuid
 from typing import List, Optional, Dict
 from sqlalchemy import select, delete, update
-from database.engine import AsyncSessionLocal
+from database.engine import get_db_session
 from database.models import Analysis, Candidate
 
 
@@ -19,7 +19,7 @@ async def create_analysis(
     resume_files_info: Optional[Dict] = None,
 ):
     analysis_id = uuid.uuid4().hex
-    async with AsyncSessionLocal() as session:
+    async with get_db_session() as session:
 
         analysis = Analysis(
             analysis_id=analysis_id,
@@ -41,7 +41,7 @@ async def create_analysis(
 
 
 async def get_analyses_by_user(user_id: str) -> List[Dict]:
-    async with AsyncSessionLocal() as session:
+    async with get_db_session() as session:
         result = await session.execute(
             select(Analysis).where(Analysis.user_id == user_id)
         )
@@ -59,7 +59,7 @@ async def get_analyses_by_user(user_id: str) -> List[Dict]:
 
 async def delete_analysis(analysis_id: str):
 
-    async with AsyncSessionLocal() as session:
+    async with get_db_session() as session:
 
         await session.execute(
             delete(Candidate)
@@ -76,7 +76,7 @@ async def delete_analysis(analysis_id: str):
 
 
 async def find_existing_analysis(user_id: str, jd_hash: str, resume_set_hash: str):
-    async with AsyncSessionLocal() as session:
+    async with get_db_session() as session:
         result = await session.execute(
             select(Analysis)
             .where(Analysis.user_id == user_id)
@@ -87,7 +87,7 @@ async def find_existing_analysis(user_id: str, jd_hash: str, resume_set_hash: st
 
 
 async def update_analysis_status(analysis_id: str, status: str):
-    async with AsyncSessionLocal() as session:
+    async with get_db_session() as session:
         await session.execute(
             update(Analysis)
             .where(Analysis.analysis_id == analysis_id)

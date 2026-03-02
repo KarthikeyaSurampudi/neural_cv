@@ -39,6 +39,8 @@ def get_engine():
     return _engines[loop_id]
 
 
+from contextlib import asynccontextmanager
+
 async def init_db():
     engine = get_engine()
     async with engine.begin() as conn:
@@ -46,6 +48,18 @@ async def init_db():
 
 
 async def get_session():
+    engine = get_engine()
+    AsyncSessionLocal = sessionmaker(
+        bind=engine,
+        class_=AsyncSession,
+        expire_on_commit=False
+    )
+    async with AsyncSessionLocal() as session:
+        yield session
+
+
+@asynccontextmanager
+async def get_db_session():
     engine = get_engine()
     AsyncSessionLocal = sessionmaker(
         bind=engine,

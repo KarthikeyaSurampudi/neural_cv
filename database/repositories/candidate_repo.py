@@ -5,7 +5,7 @@
 import uuid
 from typing import List, Dict, Optional
 from sqlalchemy import select
-from database.engine import AsyncSessionLocal
+from database.engine import get_db_session
 from database.models import Candidate
 
 
@@ -21,7 +21,7 @@ async def add_candidate(
     was_cached: bool = False
 ) -> str:
     candidate_id = uuid.uuid4().hex
-    async with AsyncSessionLocal() as session:
+    async with get_db_session() as session:
         candidate = Candidate(
             candidate_id=candidate_id,
             analysis_id=analysis_id,
@@ -40,7 +40,7 @@ async def add_candidate(
 
 
 async def get_candidates_by_analysis(analysis_id: str) -> List[Dict]:
-    async with AsyncSessionLocal() as session:
+    async with get_db_session() as session:
         from database.models import Candidate, ScoreBreakdown
         
         # Joined load or separate queries - for now let's use a join to get everything
@@ -74,7 +74,7 @@ async def get_candidates_by_analysis(analysis_id: str) -> List[Dict]:
 
 async def get_cached_candidate_data(resume_hash: str, jd_hash: str) -> Optional[Dict]:
     """Finds an existing processed candidate with same resume + same JD (any analysis)."""
-    async with AsyncSessionLocal() as session:
+    async with get_db_session() as session:
         from database.models import Analysis, ScoreBreakdown
         
         result = await session.execute(

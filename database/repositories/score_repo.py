@@ -2,13 +2,13 @@
 
 import uuid
 from sqlalchemy import select, update
-from database.engine import AsyncSessionLocal
+from database.engine import get_db_session
 from database.models import Candidate, ScoreBreakdown
 
 
 async def update_candidate_scores(candidate_id: str, scores: dict):
 
-    async with AsyncSessionLocal() as session:
+    async with get_db_session() as session:
 
         result = await session.execute(
             select(ScoreBreakdown).where(
@@ -38,7 +38,7 @@ async def update_candidate_rank(
     justification: str
 ):
 
-    async with AsyncSessionLocal() as session:
+    async with get_db_session() as session:
         # 1. Find the candidate ID for the given name in this analysis
         # Note: This assumes names are unique within an analysis or handles the first one.
         result = await session.execute(
