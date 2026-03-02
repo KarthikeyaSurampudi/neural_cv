@@ -12,7 +12,8 @@ from sqlalchemy import (
     ForeignKey,
     JSON,
     Float,
-    Integer
+    Integer,
+    Uuid
 )
 from sqlalchemy.orm import declarative_base
 
@@ -28,7 +29,7 @@ class TimestampMixin:
 class User(Base, TimestampMixin):
     __tablename__ = "user"
 
-    user_id = Column(String(32), primary_key=True)
+    user_id = Column(Uuid(as_uuid=False), primary_key=True)
     username = Column(String(100), unique=True, nullable=False)
     password_hash = Column(String(255), nullable=False)
     is_admin = Column(Boolean, default=False)
@@ -42,7 +43,7 @@ class User(Base, TimestampMixin):
 class Analysis(Base, TimestampMixin):
     __tablename__ = "analysis"
 
-    analysis_id = Column(String(32), primary_key=True)
+    analysis_id = Column(Uuid(as_uuid=False), primary_key=True)
     analysis_name = Column(String(255), nullable=False)
     job_description_hash = Column(String(64), nullable=False)
     jd_text = Column(Text, nullable=False)
@@ -53,14 +54,14 @@ class Analysis(Base, TimestampMixin):
     status = Column(String(50), default="pending")
     stage2_count = Column(Integer, default=0)
 
-    user_id = Column(String(32), ForeignKey("user.user_id"), nullable=True)
+    user_id = Column(Uuid(as_uuid=False), ForeignKey("user.user_id"), nullable=True)
 
 
 class Candidate(Base, TimestampMixin):
     __tablename__ = "candidate"
 
-    candidate_id = Column(String(32), primary_key=True)
-    analysis_id = Column(String(32), ForeignKey("analysis.analysis_id"), nullable=False)
+    candidate_id = Column(Uuid(as_uuid=False), primary_key=True)
+    analysis_id = Column(Uuid(as_uuid=False), ForeignKey("analysis.analysis_id"), nullable=False)
 
     raw_text = Column(Text, nullable=False)
     structured_json = Column(JSON, nullable=False)
@@ -77,7 +78,7 @@ class Candidate(Base, TimestampMixin):
 class ScoreBreakdown(Base, TimestampMixin):
     __tablename__ = "score_breakdown"
 
-    candidate_id = Column(String(32), ForeignKey("candidate.candidate_id"), primary_key=True)
+    candidate_id = Column(Uuid(as_uuid=False), ForeignKey("candidate.candidate_id"), primary_key=True)
     
     skill_match = Column(Float, default=0.0)
     exp_match = Column(Float, default=0.0)
