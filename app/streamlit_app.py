@@ -1,6 +1,11 @@
 ﻿import asyncio
 import streamlit as st
 from pathlib import Path
+import sys
+import os
+
+# Add the project root to the python path so modules can be imported when running from the app directory
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from core.logging_config import configure_logging
 from database.engine import init_db
