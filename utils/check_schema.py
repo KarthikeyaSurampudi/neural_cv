@@ -11,12 +11,13 @@ from sqlalchemy import text
 async def check():
     async with get_db_session() as session:
         result = await session.execute(text("""
-            SELECT column_name, data_type 
+            SELECT table_name, column_name, data_type 
             FROM information_schema.columns 
-            WHERE table_name = 'user' OR table_name = 'analysis' OR table_name = 'candidate';
+            WHERE table_schema = 'public' 
+            ORDER BY table_name, ordinal_position;
         """))
         for row in result.fetchall():
-            print(f"{row[0]}: {row[1]}")
+            print(f"{row[0]} -> {row[1]}: {row[2]}")
 
 if __name__ == "__main__":
     asyncio.run(check())
