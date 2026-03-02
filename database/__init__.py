@@ -1,10 +1,10 @@
 ﻿# database/__init__.py
 
-from .engine import engine, init_db
+from .engine import get_engine, init_db
 from .models import Base, User, Analysis, Candidate
 
 __all__ = [
-    "engine",
+    "get_engine",
     "init_db",
     "Base",
     "User",

@@ -5,7 +5,7 @@ import sys
 # Add the project directory to the python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from database.engine import engine
+from database.engine import get_engine
 from sqlalchemy import text
 import logging
 
@@ -13,6 +13,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 async def migrate():
+    engine = get_engine()
     logger.info("Starting schema migration...")
     async with engine.begin() as conn:
         try:
