@@ -47,7 +47,15 @@ def run_async(coro):
 
 
 # ---------------- Init DB ----------------
+import os
 if "db_initialized" not in st.session_state:
+    # On Render with a persistent disk, we might need to ensure the directory exists
+    # though Render usually handles the mount point, it's safe to check.
+    db_path = config.database_url.split("///")[-1]
+    db_dir = os.path.dirname(db_path)
+    if db_dir and not os.path.exists(db_dir) and db_dir.startswith("/data"):
+        os.makedirs(db_dir, exist_ok=True)
+        
     run_async(init_db())
     st.session_state.db_initialized = True
 

@@ -376,3 +376,17 @@
   - Ensures the system is ready for first launch with proper credentials.
 
 ================================================================================
+
+28. RENDER.COM DEPLOYMENT READY
+================================================================================
+
+  FILES: render.yaml, runtime.txt, app/streamlit_app.py
+
+  - Added Render Blueprint (render.yaml) for automated cloud deployment
+  - Configured persistent disk (1GB) for SQLite database persistence
+  - Added runtime.txt to lock Python version to 3.11.9
+  - Modified streamlit_app.py to auto-create /data/ directory on Render
+  - Optimized startup command for Render port binding:
+      streamlit run app/streamlit_app.py --server.port $PORT --server.address 0.0.0.0
+
+================================================================================
